@@ -14,5 +14,16 @@ export interface BaseMovieProps {
     runtime: number;
     revenue: number;
     vote_count: number;
-    favourite?: boolean;
+    favourite?: boolean;  
+  }
+
+  export interface BaseMovieListProps { 
+    movies: BaseMovieProps[];
+  }   
+
+  export interface MovieDetailsProps extends BaseMovieProps {
+    genres: {
+      id: number;
+      name: string;
+    }[];
   }
