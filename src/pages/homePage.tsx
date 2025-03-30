@@ -3,6 +3,7 @@ import PageTemplate from '../components/templateMovieListPage';
 import { BaseMovieProps } from "../types/interfaces";
 import { getMovies } from "../api/tmdb-api";
 
+
 const HomePage: React.FC = () => {
   const [movies, setMovies] = useState<BaseMovieProps[]>([]);
   const favourites = movies.filter(m => m.favourite)
@@ -21,6 +22,7 @@ const HomePage: React.FC = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   return (
     <PageTemplate
