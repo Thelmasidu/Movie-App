@@ -40,3 +40,14 @@ export const getMovies = () => {
         return json.results;
       });
   };
+
+  // src/api/tmdb-api.ts
+
+export const getUpcomingMovies = async () => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+  );
+  if (!res.ok) throw new Error("Failed to fetch upcoming movies");
+  return await res.json();
+};
+
