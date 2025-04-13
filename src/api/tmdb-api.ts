@@ -54,7 +54,7 @@ export const getMovie = (id: string) => {
         throw error
       });
   };
-  
+    
 
   export const getMovieReviews = (id: string | number) => { //movie id can be string or number
     return fetch(
