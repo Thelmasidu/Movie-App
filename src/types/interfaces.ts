@@ -76,4 +76,12 @@ export interface BaseMovieProps {
     results: BaseMovieProps[];
   }
 
- 
+  export interface Review {
+    author: string,
+    content: string,
+    agree: boolean,
+    rating: number,
+    movieId: number,
+  }
+
+
