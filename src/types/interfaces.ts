@@ -84,4 +84,53 @@ export interface BaseMovieProps {
     movieId: number,
   }
 
+  export interface BaseTvShowProps {
+    backdrop_path: string | null;
+    first_air_date: string;
+    genre_ids: number[];
+    id: number;
+    name: string;
+    origin_country: string[];
+    original_language: string;
+    original_name: string;
+    overview: string;
+    popularity: number;
+    poster_path: string | null;
+    vote_average: number;
+    vote_count: number;
+    favourite?: boolean;
+  }
+
+  export interface People {
+    adult: boolean;
+    gender: number;
+    id: number;
+    known_for: KnownFor[];
+    known_for_department: string;
+    name: string;
+    original_name: string;
+    popularity: number;
+    profile_path: string;
+    favourite?: boolean;
+  }
+
+  
+export interface KnownFor {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  media_type: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
 
