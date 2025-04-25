@@ -1,24 +1,28 @@
-import React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
-const styles = {
-  root: {
-    display: 'flex',
-    justifyContent: "center",
-    '& > * + *': {
-      marginLeft: 2,
-    },
-  },
-};
-
-const CircularIndeterminate: React.FC = ()=> {
-
-    return (
-        <div style={styles.root}>
-            <CircularProgress />
-            <CircularProgress />
-        </div>
-    );
+export default function CircularIndeterminate() {
+  return (
+    <Box
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    </Box>
+  );
 }
-
-export default CircularIndeterminate;
