@@ -56,6 +56,15 @@ export interface BaseMovieProps {
     title: string;
   }  
   
+  export interface MovieListPageTemplateProps extends BaseMovieListProps {
+    title: string;
+    page: number;
+    totalPages?: number;
+    onPrevious: () => void;
+    onNext: () => void;
+    action: (movie: BaseMovieProps) => React.ReactElement;
+  }
+
   export interface Review{
     id: string;
     content: string
