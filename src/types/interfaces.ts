@@ -142,4 +142,37 @@ export interface KnownFor {
   vote_count: number;
 }
 
+export interface BaseTvShowProps {
+  backdrop_path: string | null;
+  first_air_date: string;
+  genre_ids: number[];
+  id: number;
+  name: string;
+  origin_country: string[];
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string | null;
+  vote_average: number;
+  vote_count: number;
+  favourite?: boolean;
+}
 
+export interface ListedTvShow extends BaseTvShowProps {
+  genre_ids: number[];
+}
+
+export interface BaseTvShowListProps {
+  shows: BaseTvShowProps[];
+  action: (m: BaseTvShowProps) => React.ReactNode;
+}
+
+export interface TvShowListPageTemplateProps extends BaseTvShowListProps {
+  title: string;
+  page: number;
+  totalPages?: number;
+  onPrevious: () => void;
+  onNext: () => void;
+  action: (show: BaseTvShowProps) => React.ReactElement;
+}
