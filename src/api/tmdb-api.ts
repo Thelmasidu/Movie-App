@@ -72,13 +72,68 @@ export const getMovie = (id: string) => {
       });
   };
 
-  // src/api/tmdb-api.ts
-
 export const getUpcomingMovies = async () => {
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
   );
   if (!res.ok) throw new Error("Failed to fetch upcoming movies");
   return await res.json();
+};
+
+export const fetchTvShows = (
+  page: number = 1,
+  sortBy: string = "popularity.desc"
+) => {
+  return fetch(
+    `https://api.themoviedb.org/3/discover/tv?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}`
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch tv shows. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const fetchTvShowImages = (id: string | number) => {
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${id}/images?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("failed to fetch tv images");
+      }
+      return response.json();
+    })
+    .then((json) => json.posters)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const fetchTvShowDetails = (id: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${id}?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }&language=en-US&include_adult=false&include_video=false&page=1`
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch tv show detail. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
 };
 
