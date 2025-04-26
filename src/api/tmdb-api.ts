@@ -119,7 +119,7 @@ export const fetchTvShowImages = (id: string | number) => {
     });
 };
 
-export const fetchTvShowDetail = (id: string) => {
+export const fetchTvShowDetails = (id: string) => {
   return fetch(
     `https://api.themoviedb.org/3/tv/${id}?api_key=${
       import.meta.env.VITE_TMDB_KEY

@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { TVShowDetail } from "../types/interfaces";
-import { fetchTvShowDetail } from "../api/tmdb-api";
+import { fetchTvShowDetails } from "../api/tmdb-api";
 import PageTemplate from "../components/templateTvShowPage";
 import Spinner from "../components/spinner";
 import TvShowDetail from "../components/tvShowDetails";
@@ -14,7 +14,7 @@ const ShowDetailPage = () => {
     isLoading: showLoading,
     isError: showIsError,
   } = useQuery<TVShowDetail, Error>(["Tv show", id], () =>
-    fetchTvShowDetail(id || "")
+    fetchTvShowDetails(id || "")
   );
 
   console.log(show);
