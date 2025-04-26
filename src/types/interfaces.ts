@@ -1,5 +1,11 @@
 export type FilterOption = "title" | "genre";
 
+export interface Genre {
+  id: number;
+  name: string;
+}
+
+
 export interface BaseMovieProps {
     title: string;
     budget: number;
@@ -24,7 +30,7 @@ export interface BaseMovieProps {
   export interface ListedMovie extends BaseMovieProps {
     genre_ids: number[];
   }
-  
+
   export interface BaseMovieListProps { 
     movies: BaseMovieProps[];
     action: (m: BaseMovieProps) => React.ReactNode;
@@ -76,10 +82,7 @@ export interface BaseMovieProps {
   }
 
   export interface GenreData {
-    genres: {
-      id: string;
-      name: string
-    }[];
+    genres: Genre[];
   }
   
   export interface DiscoverMovies {
