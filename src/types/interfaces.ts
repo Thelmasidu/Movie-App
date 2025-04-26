@@ -21,6 +21,10 @@ export interface BaseMovieProps {
     upComing: number;
   }
 
+  export interface ListedMovie extends BaseMovieProps {
+    genre_ids: number[];
+  }
+  
   export interface BaseMovieListProps { 
     movies: BaseMovieProps[];
     action: (m: BaseMovieProps) => React.ReactNode;
