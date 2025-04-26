@@ -9,7 +9,7 @@ import TvShowFilterUI, {
 import { DiscoverTvShows, BaseTvShowProps } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import AddShowsToFavouritesIcon from "../components/cardIcons/AddShowsToFavouritesIcon";
+import AddShowsToFavouritesIcon from "../components/cardIcons/addShowsToFavouriteIcon";
 import { Box, Typography } from "@mui/material";
 import Pagination from "../components/pagination";
 
