@@ -1,45 +1,56 @@
 import React from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-
-const styles = {
-    root: {
-        display: "flex",
-        justifyContent: "space-around",
-        alignItems: "center",
-        flexWrap: "wrap",
-        marginBottom: 1.5,
-    },
-};
+import { StyledHeader } from "./HeaderMovie.styled";
 
 interface HeaderProps {
-    title: string;
+  title: string;
+  page: number;
+  totalPages?: number;
+  onPrevious: () => void;
+  onNext: () => void;
 }
 
-const Header: React.FC<HeaderProps> = (headerProps) => {
-    const title = headerProps.title
+const Header: React.FC<HeaderProps> = ({
+  title,
+  page,
+  totalPages,
+  onPrevious,
+  onNext,
+}) => {
+  const isLastPage = totalPages ? page >= totalPages : false;
 
-    return (
-        <Paper component="div" sx={styles.root}>
-            <IconButton
-                aria-label="go back"
-            >
-                <ArrowBackIcon color="primary" fontSize="large" />
-            </IconButton>
+  return (
+    <StyledHeader variant="outlined">
+      <IconButton
+        aria-label="go back"
+        onClick={onPrevious}
+        disabled={page === 1}
+      >
+        <ArrowBackIcon
+          color={page === 1 ? "disabled" : "primary"}
+          fontSize="large"
+        />
+      </IconButton>
 
-            <Typography variant="h4" component="h3">
-                {title}
-            </Typography>
-            <IconButton
-                aria-label="go forward"
-            >
-                <ArrowForwardIcon color="primary" fontSize="large" />
-            </IconButton>
-        </Paper>
-    );
+      <Typography variant="h4" component="h3">
+        {title} — Page {page}
+      </Typography>
+
+      <IconButton
+        aria-label="go forward"
+        onClick={onNext}
+        disabled={isLastPage}
+      >
+        <ArrowForwardIcon
+          color={isLastPage ? "disabled" : "primary"}
+          fontSize="large"
+        />
+      </IconButton>
+    </StyledHeader>
+  );
 };
 
 export default Header;
