@@ -37,7 +37,7 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({
 
   const genres = data?.genres || [];
   if (genres[0].name !== "All") {
-    genres.unshift({ id: "0", name: "All" });
+    genres.unshift({ id: 0, name: "All" });
   }
 
   const handleTextInputChange = (e: ChangeEvent<HTMLInputElement>) => {
