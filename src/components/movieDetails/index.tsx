@@ -1,85 +1,164 @@
 import React, { useState } from "react";
-import Chip from "@mui/material/Chip";
-import Paper from "@mui/material/Paper";
+import { Box, Chip, Divider } from "@mui/material";
+import { Fab, Grid, Stack, Typography } from "@mui/material";
+import Drawer from "@mui/material/Drawer";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MonetizationIcon from "@mui/icons-material/MonetizationOn";
-import StarRate from "@mui/icons-material/StarRate";
-import Typography from "@mui/material/Typography";
-import { MovieDetailsProps } from "../../types/interfaces";
 import NavigationIcon from "@mui/icons-material/Navigation";
-import Fab from "@mui/material/Fab";
-import Drawer from "@mui/material/Drawer";
-import MovieReviews from '../movieReviews'
-
-const styles = {
-    chipSet: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexWrap: "wrap",
-        listStyle: "none",
-        padding: 1.5,
-        margin: 0,
-    },
-    chipLabel: {
-        margin: 0.5,
-    },
-    fab: {
-        position: "fixed",
-        top: 50,
-        right: 2,
-    },
-};
+import StarRateIcon from "@mui/icons-material/StarRate";
+import MovieReviews from "../movieReviews";
+import { MovieDetailsProps } from "../../types/interfaces";
+import {
+  BudgetText,
+  CenteredText,
+  OverviewText,
+  SectionTitle,
+  StyledPaper,
+} from "./MovieDetails.styled";
 
 const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-    const [drawerOpen, setDrawerOpen] = useState(false); // New
+  return (
+    <Box>
+      <StyledPaper>
+        <SectionTitle variant="h5" gutterBottom>
+          Overview
+        </SectionTitle>
+        <OverviewText variant="body1" paragraph>
+          {movie.overview}
+        </OverviewText>
 
-    return (
-        <>
-            <Typography variant="h5" component="h3">
-                Overview
-            </Typography>
+        <Divider sx={{ my: 3 }} />
 
-            <Typography variant="h6" component="p">
-                {movie.overview}
-            </Typography>
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item>
+            <Chip
+              icon={<AccessTimeIcon />}
+              label={`Movie Runtime: ${movie.runtime} min`}
+              color="primary"
+            />
+          </Grid>
+          <Grid item>
+            <Chip
+              icon={<MonetizationIcon />}
+              label={`Revenue: $${movie.revenue.toLocaleString()}`}
+              color="success"
+            />
+          </Grid>
+          <Grid item>
+            <Chip
+              icon={<StarRateIcon />}
+              label={`${movie.vote_average} (${movie.vote_count} votes)`}
+              color="warning"
+            />
+          </Grid>
+          <Grid item>
+            <Chip label={`Released: ${movie.release_date}`} />
+          </Grid>
+        </Grid>
 
-            <Paper component="ul" sx={styles.chipSet}>
-                <li>
-                    <Chip label="Genres" sx={styles.chipLabel} color="primary" />
-                </li>
-                {movie.genres.map((g) => (
-                    <li key={g.name}>
-                        <Chip label={g.name} />
-                    </li>
-                ))}
-            </Paper>
-            <Paper component="ul" sx={styles.chipSet}>
-                <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
-                <Chip
-                    icon={<MonetizationIcon />}
-                    label={`${movie.revenue.toLocaleString()}`}
-                />
-                <Chip
-                    icon={<StarRate />}
-                    label={`${movie.vote_average} (${movie.vote_count}`}
-                />
-                <Chip label={`Released: ${movie.release_date}`} />
-            </Paper>
-            <Fab
-                color="secondary"
-                variant="extended"
-                onClick={() => setDrawerOpen(true)}
-                sx={styles.fab}
-            >
-                <NavigationIcon />
-                Reviews
-            </Fab>
-            <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-                <MovieReviews {...movie} />
-            </Drawer>
-        </>
-    );
+        <Divider sx={{ my: 3 }} />
+
+        <CenteredText variant="h6" gutterBottom>
+          Genres
+        </CenteredText>
+        <Stack
+          direction="row"
+          spacing={1}
+          flexWrap="wrap"
+          justifyContent="center"
+        >
+          {movie.genres.map((g) => (
+            <Chip key={g.id} label={g.name} variant="outlined" />
+          ))}
+        </Stack>
+
+        <Divider sx={{ my: 3 }} />
+
+        <CenteredText variant="h6" gutterBottom>
+          Original Title & Language
+        </CenteredText>
+        <CenteredText variant="body2">
+          <strong>Original Title:</strong> {movie.original_title}
+        </CenteredText>
+        <CenteredText variant="body2">
+          <strong>Original Language:</strong>{" "}
+          {movie.original_language.toUpperCase()}
+        </CenteredText>
+
+        <Divider sx={{ my: 3 }} />
+
+        <CenteredText variant="h6" gutterBottom>
+          Spoken Languages
+        </CenteredText>
+        <Stack
+          direction="row"
+          spacing={1}
+          flexWrap="wrap"
+          justifyContent="center"
+        >
+          {movie.spoken_languages.map((lang) => (
+            <Chip key={lang.iso_639_1} label={lang.english_name} />
+          ))}
+        </Stack>
+
+        <Divider sx={{ my: 3 }} />
+
+        <CenteredText variant="h6" gutterBottom>
+          Production Countries
+        </CenteredText>
+        <Stack
+          direction="row"
+          spacing={1}
+          flexWrap="wrap"
+          justifyContent="center"
+        >
+          {movie.production_countries.map((country) => (
+            <Chip key={country.iso_3166_1} label={country.name} />
+          ))}
+        </Stack>
+
+        {movie.budget > 0 && (
+          <>
+            <Divider sx={{ my: 3 }} />
+            <BudgetText variant="body2">
+              <strong>Budget:</strong> ${movie.budget.toLocaleString()}
+            </BudgetText>
+          </>
+        )}
+      </StyledPaper>
+
+      <Fab
+        color="secondary"
+        variant="extended"
+        onClick={() => setDrawerOpen(true)}
+        sx={{
+          position: "fixed",
+          top: 20,
+          right: 20,
+          zIndex: 1300,
+        }}
+      >
+        <NavigationIcon sx={{ mr: 1 }} />
+        Reviews
+      </Fab>
+
+      <Drawer
+        anchor="bottom"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        PaperProps={{
+          sx: { p: 4, borderTopLeftRadius: 16, borderTopRightRadius: 16 },
+        }}
+      >
+        <Typography variant="h5" gutterBottom>
+          Reviews for {movie.title}
+        </Typography>
+        <MovieReviews {...movie} />
+      </Drawer>
+    </Box>
+  );
 };
+
 export default MovieDetails;
