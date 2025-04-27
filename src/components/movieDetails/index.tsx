@@ -14,7 +14,7 @@ import {
   OverviewText,
   SectionTitle,
   StyledPaper,
-} from "./MovieDetails.styled";
+} from "./movieDetails.styled";
 
 const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
