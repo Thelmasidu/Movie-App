@@ -363,3 +363,10 @@ export interface KnownFor {
   vote_average: number;
   vote_count: number;
 }
+
+export interface DiscoverPeople {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  results: People[];
+}
