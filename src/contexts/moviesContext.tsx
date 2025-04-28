@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { BaseMovieProps, BaseTvShowProps } from "../types/interfaces";
+import { BaseMovieProps, BaseTvShowProps, People } from "../types/interfaces";
 import { Review } from "../types/interfaces";
 
 interface MovieContextInterface {
@@ -7,6 +7,7 @@ interface MovieContextInterface {
   favouriteShows: number[];
   addToFavourites: (movie: BaseMovieProps) => void;
   addToFavouriteShows: (show: BaseTvShowProps) => void;
+  addToFavouritePeople: (person: People) => void;
   removeFromFavourites: (movie: BaseMovieProps) => void;
   removeShowsFromFavourites: (movie: BaseTvShowProps) => void;
 
@@ -18,11 +19,14 @@ interface MovieContextInterface {
 const initialContextState: MovieContextInterface = {
   favourites: [],
   favouriteShows: [],
+  favouritePeople: [],
   addToFavourites: () => {},
   addToFavouriteShows: (show) => {
     show.id;
   },
- 
+  addToFavouritePeople: (person) => {
+    person.id;
+  },
   removeFromFavourites: () => {},
   removeShowsFromFavourites: (show) => {
     show.id;
@@ -43,6 +47,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
   const [favourites, setFavourites] = useState<number[]>([]);
   const [mustWatch, setMustWatch] = useState<number[]>([]);
   const [favouriteShows, setFavouriteShows] = useState<number[]>([]);
+  const [favouritePeople, setFavouritePeople] = useState<number[]>([]);
   
   const addToFavourites = useCallback((movie: BaseMovieProps) => {
     setFavourites((prev) =>
@@ -56,6 +61,14 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
       updatedFavouriteShows.push(show.id);
     }
     setFavouriteShows(updatedFavouriteShows);
+  };
+
+  const addToFavouritePeople = (person: People) => {
+    const updatedFavouritePeople = [...favouritePeople];
+    if (!favouritePeople.includes(person.id)) {
+      updatedFavouritePeople.push(person.id);
+    }
+    setFavouritePeople(updatedFavouritePeople);
   };
 
   const removeFromFavourites = useCallback((movie: BaseMovieProps) => {
@@ -90,6 +103,8 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
         favouriteShows,
         addToFavouriteShows,
         removeShowsFromFavourites,
+        addToFavouritePeople,
+        favouritePeople,
     
       }}
     >
