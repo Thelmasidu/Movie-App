@@ -5,6 +5,7 @@ import { Review } from "../types/interfaces";
 interface MovieContextInterface {
   favourites: number[];
   favouriteShows: number[];
+  favouritePeople: number[];
   addToFavourites: (movie: BaseMovieProps) => void;
   addToFavouriteShows: (show: BaseTvShowProps) => void;
   addToFavouritePeople: (person: People) => void;
