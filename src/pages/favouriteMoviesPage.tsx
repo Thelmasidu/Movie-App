@@ -4,18 +4,20 @@ import TvListPageTemplate from "../components/templateTvShowListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
 import {
+ 
   fetchTvShowDetails,
   getMovie,
 } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
 import RemoveShowsFromFavouritesIcon from "../components/cardIcons/removeShowsFromFavourites";
-import WriteReview from "../components/cardIcons/writeReview"; 
+import WriteReview from "../components/cardIcons/writeReview";
 
 const FavouriteMoviesPage: React.FC = () => {
   const {
     favourites: movieIds,
     favouriteShows: showId,
+
   } = useContext(MoviesContext);
 
   // Create an array of queries and run them in parallel.
@@ -39,8 +41,8 @@ const FavouriteMoviesPage: React.FC = () => {
 
   // Check if any of the parallel queries is still loading.
   const isLoading =
-    favouriteMovieQueries.some((m) => m.isLoading) 
-    favouriteTvShowQueries.some((s) => s.isLoading)
+    favouriteMovieQueries.some((m) => m.isLoading)
+    favouriteTvShowQueries.some((s) => s.isLoading) 
 
   if (isLoading) {
     return <Spinner />;
@@ -89,6 +91,7 @@ const FavouriteMoviesPage: React.FC = () => {
           throw new Error("Function not implemented.");
         }}
       />
+
 
     </>
   );
