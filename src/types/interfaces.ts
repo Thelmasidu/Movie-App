@@ -297,3 +297,69 @@ export interface DiscoverTvShows {
   total_results: number;
   results: BaseTvShowProps[];
 }
+
+
+export interface People {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for: KnownFor[];
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  favourite?: boolean;
+}
+
+export interface PeopleProfileDetails {
+  adult: boolean;
+  also_known_as: string[];
+  biography: string;
+  birthday: string;
+  deathday: string | null;
+  gender: number;
+  homepage: string | null;
+  id: number;
+  imdb_id: string;
+  known_for_department: string;
+  name: string;
+  place_of_birth: string;
+  popularity: number;
+  profile_path: string | null;
+}
+
+export interface PeopleResponse {
+  page: number;
+  total_results: number;
+  total_pages: number;
+  results: People[];
+}
+
+export interface PeopleListPageTemplateProps {
+  people: People[];
+  title: string;
+  action: (m: People) => React.ReactNode;
+  page: number;
+  totalPages?: number;
+  onPrevious: () => void;
+  onNext: () => void;
+}
+
+export interface KnownFor {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  media_type: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
