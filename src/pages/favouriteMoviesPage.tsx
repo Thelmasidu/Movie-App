@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import TvListPageTemplate from "../components/templateTvShowListPage";
+import PeopleListPageTemplate from "../components/templatePeopleListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
 import {
- 
+  fetchPersonDetails,
   fetchTvShowDetails,
   getMovie,
 } from "../api/tmdb-api";
@@ -12,12 +13,13 @@ import Spinner from "../components/spinner";
 import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
 import RemoveShowsFromFavouritesIcon from "../components/cardIcons/removeShowsFromFavourites";
 import WriteReview from "../components/cardIcons/writeReview";
+import RemovePersonFromFavouritesIcon from "../components/cardIcons/removePersonFromFavourites";
 
 const FavouriteMoviesPage: React.FC = () => {
   const {
     favourites: movieIds,
     favouriteShows: showId,
-
+    favouritePeople: peopleId,
   } = useContext(MoviesContext);
 
   // Create an array of queries and run them in parallel.
@@ -39,10 +41,20 @@ const FavouriteMoviesPage: React.FC = () => {
     })
   );
 
+  const favouritePeopleQueries = useQueries(
+    peopleId.map((personId) => {
+      return {
+        queryKey: ["people", personId],
+        queryFn: () => fetchPersonDetails(personId.toString()),
+      };
+    })
+  );
+
   // Check if any of the parallel queries is still loading.
   const isLoading =
-    favouriteMovieQueries.some((m) => m.isLoading)
-    favouriteTvShowQueries.some((s) => s.isLoading) 
+    favouriteMovieQueries.some((m) => m.isLoading) ||
+    favouriteTvShowQueries.some((s) => s.isLoading) ||
+    favouritePeopleQueries.some((p) => p.isLoading);
 
   if (isLoading) {
     return <Spinner />;
@@ -50,6 +62,7 @@ const FavouriteMoviesPage: React.FC = () => {
 
   const allFavourites = favouriteMovieQueries.map((q) => q.data);
   const allShowFavourites = favouriteTvShowQueries.map((q) => q.data);
+  const allPeopleFavourites = favouritePeopleQueries.map((q) => q.data);
 
   return (
     <>
@@ -92,7 +105,24 @@ const FavouriteMoviesPage: React.FC = () => {
         }}
       />
 
-
+      <PeopleListPageTemplate
+        title="Favourite People"
+        people={allPeopleFavourites}
+        action={(person) => {
+          return (
+            <>
+              <RemovePersonFromFavouritesIcon {...person} />
+            </>
+          );
+        }}
+        page={0}
+        onPrevious={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+        onNext={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
     </>
   );
 };

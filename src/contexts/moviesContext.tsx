@@ -1,15 +1,18 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { useState, useCallback } from "react";
-import { BaseMovieProps, BaseTvShowProps } from "../types/interfaces";
+import { BaseMovieProps, BaseTvShowProps, People } from "../types/interfaces";
 import { Review } from "../types/interfaces";
 
 interface MovieContextInterface {
   favourites: number[];
   favouriteShows: number[];
+  favouritePeople: number[];
   addToFavourites: (movie: BaseMovieProps) => void;
   addToFavouriteShows: (show: BaseTvShowProps) => void;
+  addToFavouritePeople: (person: People) => void;
   removeFromFavourites: (movie: BaseMovieProps) => void;
   removeShowsFromFavourites: (movie: BaseTvShowProps) => void;
-
+  removeFromFavouritePeople: (people: People) => void;
   addReview: (movie: BaseMovieProps, review: Review) => void;
   addToMustWatch: (movie: BaseMovieProps) => void;
   mustWatch: number[];
@@ -18,16 +21,21 @@ interface MovieContextInterface {
 const initialContextState: MovieContextInterface = {
   favourites: [],
   favouriteShows: [],
+  favouritePeople: [],
   addToFavourites: () => {},
   addToFavouriteShows: (show) => {
     show.id;
   },
- 
+  addToFavouritePeople: (person) => {
+    person.id;
+  },
   removeFromFavourites: () => {},
   removeShowsFromFavourites: (show) => {
     show.id;
   },
-
+  removeFromFavouritePeople: (person) => {
+    person.id;
+  },
   addReview: () => {},
   mustWatch: [],
   addToMustWatch: () => {},
@@ -43,12 +51,21 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
   const [favourites, setFavourites] = useState<number[]>([]);
   const [mustWatch, setMustWatch] = useState<number[]>([]);
   const [favouriteShows, setFavouriteShows] = useState<number[]>([]);
-  
+  const [favouritePeople, setFavouritePeople] = useState<number[]>([]);
+
   const addToFavourites = useCallback((movie: BaseMovieProps) => {
     setFavourites((prev) =>
       !prev.includes(movie.id) ? [...prev, movie.id] : prev
     );
   }, []);
+
+  const addToFavouritePeople = (person: People) => {
+    const updatedFavouritePeople = [...favouritePeople];
+    if (!favouritePeople.includes(person.id)) {
+      updatedFavouritePeople.push(person.id);
+    }
+    setFavouritePeople(updatedFavouritePeople);
+  };
 
   const addToFavouriteShows = (show: BaseTvShowProps) => {
     const updatedFavouriteShows = [...favouriteShows];
@@ -64,6 +81,10 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
 
   const removeShowsFromFavourites = (show: BaseTvShowProps) => {
     setFavouriteShows(favouriteShows.filter((sId) => sId !== show.id));
+  };
+
+  const removeFromFavouritePeople = (person: People) => {
+    setFavouritePeople(favouritePeople.filter((aId) => aId !== person.id));
   };
 
   const addReview = (movie: BaseMovieProps, review: Review) => {
@@ -90,7 +111,9 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
         favouriteShows,
         addToFavouriteShows,
         removeShowsFromFavourites,
-    
+        addToFavouritePeople,
+        favouritePeople,
+        removeFromFavouritePeople,
       }}
     >
       {children}
