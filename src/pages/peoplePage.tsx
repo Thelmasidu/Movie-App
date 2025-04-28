@@ -7,7 +7,7 @@ import { DiscoverPeople, People } from "../types/interfaces";
 import PageTemplate from "../components/templatePeopleListPage";
 import Spinner from "../components/spinner";
 import Pagination from "../components/pagination";
-import AddPersonToFavouritesIcon from "../components/cardIcons/AddPersonToFavouritesIcon";
+import AddPersonToFavouritesIcon from "../components/cardIcons/addPersonToFavouriteIcon";
 
 const PeoplePage: React.FC = () => {
   const [page, setPage] = useState(1);
