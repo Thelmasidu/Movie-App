@@ -80,6 +80,13 @@ export interface BaseMovieProps {
     }[];
   }
 
+  export interface MovieDetailsProps extends BaseMovieProps {
+    original_title: string;
+    genres: Genre[];
+    production_countries: ProductionCountry[];
+    spoken_languages: SpokenLanguage[];
+  }
+  
   export interface MovieImage {
     file_path: string;
     aspect_ratio?: number; //some props are optional...
