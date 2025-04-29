@@ -370,3 +370,55 @@ export interface DiscoverPeople {
   total_results: number;
   results: People[];
 }
+
+
+export interface SearchResultBase {
+  id: number;
+  media_type: string;
+}
+
+export interface MovieResult extends BaseMovieProps, SearchResultBase {
+  genre_ids: number[];
+}
+
+export interface TVShowResult extends TVShowDetail, SearchResultBase {
+  genre_ids: number[];
+}
+
+export interface KnownFor {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  media_type: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
+export interface PersonResult extends SearchResultBase {
+  adult: boolean;
+  gender: number;
+  known_for: KnownFor[];
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+}
+
+export type MultiSearchResult = MovieResult | TVShowResult | PersonResult;
+
+export interface MultiSearchResponse {
+  page: number;
+  total_results: number;
+  total_pages: number;
+  results: MultiSearchResult[];
+}
