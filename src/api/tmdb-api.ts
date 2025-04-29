@@ -172,3 +172,39 @@ export const fetchPersonDetails = (id: string) => {
       throw error;
     });
 };
+
+export const fetchMultiSearchResults = (
+  query: string,
+  page: number = 1,
+  includeAdult: boolean = false,
+  language: string = "en-US",
+  mediaType?: string
+) => {
+  let url = `https://api.themoviedb.org/3/search/multi?api_key=${
+    import.meta.env.VITE_TMDB_KEY
+  }&language=${language}&page=${page}&include_adult=${includeAdult}&query=${encodeURIComponent(
+    query
+  )}`;
+  if (mediaType) {
+    url += `&media_type=${mediaType}`;
+  }
+  return fetch(url)
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch multi search results. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .then((data) => {
+      if (mediaType) {
+        data.results = data.results.filter(
+          (item: MultiSearchResult) => item.media_type === mediaType
+        );
+      }
+      return data;
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
