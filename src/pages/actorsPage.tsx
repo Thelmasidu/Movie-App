@@ -7,7 +7,7 @@ import { DiscoverActors, Actors } from "../types/interfaces";
 import PageTemplate from "../components/templateActorsListPage";
 import Spinner from "../components/spinner";
 import Pagination from "../components/pagination";
-import AddPersonToFavouritesIcon from "../components/cardIcons/AddActorToFavouritesIcon";
+import AddPersonToFavouritesIcon from "../components/cardIcons/addActorToFavouritesIcon";
 
 const ActorsPage: React.FC = () => {
   const [page, setPage] = useState(1);
