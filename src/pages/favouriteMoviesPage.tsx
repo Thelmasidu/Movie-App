@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import TvListPageTemplate from "../components/templateTvShowListPage";
-import PeopleListPageTemplate from "../components/templatePeopleListPage";
+import PeopleListPageTemplate from "../components/templateActorsListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
 import {
-  fetchPersonDetails,
+  fetchActorDetails,
   fetchTvShowDetails,
   getMovie,
 } from "../api/tmdb-api";
@@ -13,14 +13,13 @@ import Spinner from "../components/spinner";
 import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
 import RemoveShowsFromFavouritesIcon from "../components/cardIcons/removeShowsFromFavourites";
 import WriteReview from "../components/cardIcons/writeReview";
-import RemovePersonFromFavouritesIcon from "../components/cardIcons/removePersonFromFavourites";
+import RemoveActorFromFavouritesIcon from "../components/cardIcons/removeActorFromFavourites";
+import { TvShowsContext } from "../contexts/tvShowsContent";
 
 const FavouriteMoviesPage: React.FC = () => {
-  const {
-    favourites: movieIds,
-    favouriteShows: showId,
-    favouritePeople: peopleId,
-  } = useContext(MoviesContext);
+  const { favourites: movieIds, favouriteActors: actorId } =
+    useContext(MoviesContext);
+  const { favouriteShows: showId } = useContext(TvShowsContext);
 
   // Create an array of queries and run them in parallel.
   const favouriteMovieQueries = useQueries(
@@ -41,11 +40,11 @@ const FavouriteMoviesPage: React.FC = () => {
     })
   );
 
-  const favouritePeopleQueries = useQueries(
-    peopleId.map((personId) => {
+  const favouriteActorsQueries = useQueries(
+    actorId.map((actorId) => {
       return {
-        queryKey: ["people", personId],
-        queryFn: () => fetchPersonDetails(personId.toString()),
+        queryKey: ["people", actorId],
+        queryFn: () => fetchActorDetails(actorId.toString()),
       };
     })
   );
@@ -54,7 +53,7 @@ const FavouriteMoviesPage: React.FC = () => {
   const isLoading =
     favouriteMovieQueries.some((m) => m.isLoading) ||
     favouriteTvShowQueries.some((s) => s.isLoading) ||
-    favouritePeopleQueries.some((p) => p.isLoading);
+    favouriteActorsQueries.some((p) => p.isLoading);
 
   if (isLoading) {
     return <Spinner />;
@@ -62,7 +61,7 @@ const FavouriteMoviesPage: React.FC = () => {
 
   const allFavourites = favouriteMovieQueries.map((q) => q.data);
   const allShowFavourites = favouriteTvShowQueries.map((q) => q.data);
-  const allPeopleFavourites = favouritePeopleQueries.map((q) => q.data);
+  const allPeopleFavourites = favouriteActorsQueries.map((q) => q.data);
 
   return (
     <>
@@ -107,11 +106,11 @@ const FavouriteMoviesPage: React.FC = () => {
 
       <PeopleListPageTemplate
         title="Favourite People"
-        people={allPeopleFavourites}
-        action={(person) => {
+        actors={allPeopleFavourites}
+        action={(actors) => {
           return (
             <>
-              <RemovePersonFromFavouritesIcon {...person} />
+              <RemoveActorFromFavouritesIcon {...actors} />
             </>
           );
         }}
