@@ -6,7 +6,7 @@ import HomePage from "./pages/homePage";
 import TvShowsPage from "./pages/tvShowsPage";
 import MoviePage from "./pages/movieDetailsPage";
 import ActorsPage from "./pages/actorsPage";
-import SearchPage from "./pages/SearchInputPage";
+import SearchPage from "./pages/searchInputPage";
 import TvShowPage from "./pages/tvShowDetailPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
@@ -17,7 +17,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from "./pages/addMovieReviewPage";
 import ActorDetailsPage from "./pages/actorDetailsPage";
-import TvShowsContextProvider from "./contexts/tvShowsContext";
+import TvShowsContextProvider from "./contexts/tvShowsContent";
 
 const queryClient = new QueryClient({
   defaultOptions: {
