@@ -1,11 +1,11 @@
 import React, { MouseEvent, useContext } from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { MoviesContext } from "../../contexts/moviesContext";
 import { BaseTvShowProps } from "../../types/interfaces";
+import { TvShowsContext } from "../../contexts/tvShowsContent";
 
 const RemoveShowsFromFavouritesIcon: React.FC<BaseTvShowProps> = (show) => {
-  const context = useContext(MoviesContext);
+  const context = useContext(TvShowsContext);
 
   const onUserRequest = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
