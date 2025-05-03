@@ -103,6 +103,11 @@ export interface MovieListPageTemplateProps extends BaseMovieListProps {
   action: (movie: BaseMovieProps) => React.ReactElement;
 }
 
+export interface MovieCredits {
+  id: number;
+  cast: CastMember[];
+}
+
 // ========== TV Show Interfaces ==========
 
 export interface BaseTvShowProps {
@@ -178,6 +183,11 @@ export interface TVShowDetail {
 export interface ShowT extends TVShowDetail {
   genres: Genre[];
   production_countries: ProductionCountry[];
+}
+
+export interface TvShowCredits {
+  cast: TvCastMember[];
+  id: number;
 }
 
 // ========== Episodes ==========
@@ -265,9 +275,19 @@ export interface TvCastMember extends CrewMember {
   department: string;
 }
 
-export interface TvShowCredits {
-  cast: TvCastMember[];
+export interface CastMember {
+  adult: boolean;
+  gender: number;
   id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string | null;
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  order: number;
 }
 
 // ========== Reviews ==========
@@ -343,7 +363,7 @@ export interface KnownFor {
   vote_count: number;
 }
 
-export interface PersonResult extends SearchResultBase {
+export interface ActorsResult extends SearchResultBase {
   adult: boolean;
   gender: number;
   known_for: KnownFor[];
@@ -354,7 +374,7 @@ export interface PersonResult extends SearchResultBase {
   profile_path: string;
 }
 
-export type MultiSearchResult = MovieResult | TVShowResult | PersonResult;
+export type MultiSearchResult = MovieResult | TVShowResult | ActorsResult;
 
 export interface MultiSearchResponse {
   page: number;
@@ -378,7 +398,7 @@ export interface Actors {
   favourite?: boolean;
 }
 
-export interface ActorsProfileDetails {
+export interface ActorsDetails {
   adult: boolean;
   also_known_as: string[];
   biography: string;
@@ -412,20 +432,21 @@ export interface ActorsListPageTemplateProps {
   onNext: () => void;
 }
 
-export interface KnownFor {
+export interface Cast {
   adult: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
+  also_known_as: string[];
+  biography: string;
+  birthday: string;
+  deathday: string | null;
+  gender: number;
+  homepage: string | null;
   id: number;
-  media_type: string;
-  original_language: string;
-  original_title: string;
-  overview: string;
+  imdb_id: string;
+  known_for_department: string;
+  name: string;
+  place_of_birth: string;
   popularity: number;
-  poster_path: string;
-  release_date: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
+  profile_path: string | null;
+  favourite?: boolean;
+  known_for: KnownFor[];
 }

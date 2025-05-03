@@ -117,7 +117,7 @@ const ActorsCard: React.FC<ActorsCardProps> = ({ actor, action }) => {
 
       <CardActions sx={{ justifyContent: "space-between", px: 2, pb: 2 }}>
         {action(actor)}
-        <Link to={`/actor/${actor.id}`} style={{ textDecoration: "none" }}>
+        <Link to={`/actors/${actor.id}`} style={{ textDecoration: "none" }}>
           <Button
             variant="contained"
             size="small"
