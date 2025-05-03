@@ -40,6 +40,25 @@ export const getMovie = (id: string) => {
     });
 };
 
+export const fetchMovieCredits = (movie_id: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }&language=en-US`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `Failed to get movie data. Response status: ${response.status}`
+        );
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
 export const getGenres = () => {
   return fetch(
     "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
@@ -262,6 +281,43 @@ export const fetchActorDetails = (id: string) => {
         );
       return response.json();
     })
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const fetchActorImages = (id: string | number) => {
+  return fetch(
+    `https://api.themoviedb.org/3/person/${id}/images?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("failed to fetch images");
+      }
+      return response.json();
+    })
+    .then((json) => json.profiles)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const fetchKnownFor = (actorId: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/person/${actorId}/combined_credits?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }`
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch actors known for movies. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .then((json) => json.cast)
     .catch((error) => {
       throw error;
     });
