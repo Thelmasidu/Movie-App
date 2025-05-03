@@ -1,4 +1,7 @@
+// Filter Options
 export type FilterOption = "title" | "genre";
+
+// ========== Common Interfaces ==========
 
 export interface Genre {
   id: number;
@@ -38,156 +41,69 @@ export interface SpokenLanguage {
   name: string;
 }
 
+// ========== Movie Interfaces ==========
 
 export interface BaseMovieProps {
-    title: string;
-    budget: number;
-    homepage: string | undefined;
-    id: number;
-    imdb_id: string;
-    original_language: string;
-    overview: string;
-    release_date: string;
-    vote_average: number;
-    popularity: number;
-    poster_path?: string;
-    tagline: string;
-    runtime: number;
-    revenue: number;
-    vote_count: number;
-    favourite?: boolean;  
-    genre_ids?: number[];
-    upComing: number;
-  }
-
-  export interface ListedMovie extends BaseMovieProps {
-    genre_ids: number[];
-  }
-
-  export interface BaseMovieListProps { 
-    movies: BaseMovieProps[];
-    action: (m: BaseMovieProps) => React.ReactNode;
-  }   
-
-  export interface MovieDetailsProps extends BaseMovieProps {
-    genres: {
-      id: number;
-      name: string;
-    }[];
-    production_countries: {
-      iso_3166_1: string;
-      name: string;
-    }[];
-  }
-
-  export interface MovieDetailsProps extends BaseMovieProps {
-    original_title: string;
-    genres: Genre[];
-    production_countries: ProductionCountry[];
-    spoken_languages: SpokenLanguage[];
-  }
-  
-  export interface MovieImage {
-    file_path: string;
-    aspect_ratio?: number; //some props are optional...
-    height?: number;
-    iso_639_1?: string;
-    vote_average?: number;
-    vote_count?: number;
-    width?: number;
-  }
-  
-  export interface MoviePageProps {
-    movie: MovieDetailsProps;
-    images: MovieImage[];
-  }
-
-  export interface MovieListPageTemplateProps extends BaseMovieListProps {
-    title: string;
-  }  
-  
-  export interface MovieListPageTemplateProps extends BaseMovieListProps {
-    title: string;
-    page: number;
-    totalPages?: number;
-    onPrevious: () => void;
-    onNext: () => void;
-    action: (movie: BaseMovieProps) => React.ReactElement;
-  }
-
-  export interface Review{
-    id: string;
-    content: string
-    author: string
-  }
-
-  export interface GenreData {
-    genres: Genre[];
-  }
-  
-  export interface DiscoverMovies {
-    page: number;	
-    total_pages: number;
-    total_results: number;
-    results: BaseMovieProps[];
-  }
-
-  export interface Review {
-    author: string,
-    content: string,
-    agree: boolean,
-    rating: number,
-    movieId: number,
-  }
-
-  export interface BaseTvShowProps {
-    backdrop_path: string | null;
-    first_air_date: string;
-    genre_ids: number[];
-    id: number;
-    name: string;
-    origin_country: string[];
-    original_language: string;
-    original_name: string;
-    overview: string;
-    popularity: number;
-    poster_path: string | null;
-    vote_average: number;
-    vote_count: number;
-    favourite?: boolean;
-  }
-
-  export interface People {
-    adult: boolean;
-    gender: number;
-    id: number;
-    known_for: KnownFor[];
-    known_for_department: string;
-    name: string;
-    original_name: string;
-    popularity: number;
-    profile_path: string;
-    favourite?: boolean;
-  }
-
-  
-export interface KnownFor {
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
-  id: number;
-  media_type: string;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  release_date: string;
   title: string;
-  video: boolean;
+  budget: number;
+  homepage: string | undefined;
+  id: number;
+  imdb_id: string;
+  original_language: string;
+  overview: string;
+  release_date: string;
   vote_average: number;
+  popularity: number;
+  poster_path?: string;
+  tagline: string;
+  runtime: number;
+  revenue: number;
   vote_count: number;
+  favourite?: boolean;
+  genre_ids?: number[];
 }
+
+export interface ListedMovie extends BaseMovieProps {
+  genre_ids: number[];
+}
+
+export interface BaseMovieListProps {
+  movies: BaseMovieProps[];
+  action: (m: BaseMovieProps) => React.ReactNode;
+}
+
+export interface MovieDetailsProps extends BaseMovieProps {
+  original_title: string;
+  genres: Genre[];
+  production_countries: ProductionCountry[];
+  spoken_languages: SpokenLanguage[];
+}
+
+export interface MovieImage {
+  file_path: string;
+  aspect_ratio?: number;
+  height?: number;
+  iso_639_1?: string;
+  vote_average?: number;
+  vote_count?: number;
+  width?: number;
+}
+
+export interface MoviePageProps {
+  movie: MovieDetailsProps;
+  images: MovieImage[];
+}
+
+export interface MovieListPageTemplateProps extends BaseMovieListProps {
+  title: string;
+  page: number;
+  totalPages?: number;
+  onPrevious: () => void;
+  onNext: () => void;
+  action: (movie: BaseMovieProps) => React.ReactElement;
+}
+
+// ========== TV Show Interfaces ==========
 
 export interface BaseTvShowProps {
   backdrop_path: string | null;
@@ -264,6 +180,8 @@ export interface ShowT extends TVShowDetail {
   production_countries: ProductionCountry[];
 }
 
+// ========== Episodes ==========
+
 export interface Episode {
   id: number;
   name: string;
@@ -279,6 +197,10 @@ export interface Episode {
   still_path: string | null;
 }
 
+export interface EpisodeDetail extends Episode {
+  crew: CrewMember[];
+  guest_stars: GuestStar[];
+}
 
 export interface Season {
   air_date: string;
@@ -291,6 +213,89 @@ export interface Season {
   vote_average: number;
 }
 
+export interface SeasonEpisode extends Episode {
+  crew: CrewMember[];
+  guest_stars: GuestStar[];
+}
+
+export interface SeasonDetail {
+  _id: string;
+  air_date: string;
+  name: string;
+  overview: string;
+  poster_path: string | null;
+  season_number: number;
+  episodes: SeasonEpisode[];
+}
+
+// ========== Cast & Crew ==========
+
+export interface CrewMember {
+  department: string;
+  job: string;
+  credit_id: string;
+  adult: boolean;
+  gender: number | null;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string | null;
+}
+
+export interface GuestStar {
+  character: string;
+  credit_id: string;
+  order: number;
+  adult: boolean;
+  gender: number | null;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string | null;
+}
+
+export interface TvCastMember extends CrewMember {
+  character: string;
+  job: string;
+  order: number;
+  department: string;
+}
+
+export interface TvShowCredits {
+  cast: TvCastMember[];
+  id: number;
+}
+
+// ========== Reviews ==========
+
+export interface Review {
+  id?: string;
+  content: string;
+  author: string;
+  agree?: boolean;
+  rating?: number;
+  movieId?: number;
+}
+
+// ========== Genre Data ==========
+
+export interface GenreData {
+  genres: Genre[];
+}
+
+// ========== Discovery ==========
+
+export interface DiscoverMovies {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  results: BaseMovieProps[];
+}
+
 export interface DiscoverTvShows {
   page: number;
   total_pages: number;
@@ -298,79 +303,14 @@ export interface DiscoverTvShows {
   results: BaseTvShowProps[];
 }
 
-
-export interface People {
-  adult: boolean;
-  gender: number;
-  id: number;
-  known_for: KnownFor[];
-  known_for_department: string;
-  name: string;
-  original_name: string;
-  popularity: number;
-  profile_path: string;
-  favourite?: boolean;
-}
-
-export interface PeopleProfileDetails {
-  adult: boolean;
-  also_known_as: string[];
-  biography: string;
-  birthday: string;
-  deathday: string | null;
-  gender: number;
-  homepage: string | null;
-  id: number;
-  imdb_id: string;
-  known_for_department: string;
-  name: string;
-  place_of_birth: string;
-  popularity: number;
-  profile_path: string | null;
-}
-
-export interface PeopleResponse {
-  page: number;
-  total_results: number;
-  total_pages: number;
-  results: People[];
-}
-
-export interface PeopleListPageTemplateProps {
-  people: People[];
-  title: string;
-  action: (m: People) => React.ReactNode;
-  page: number;
-  totalPages?: number;
-  onPrevious: () => void;
-  onNext: () => void;
-}
-
-export interface KnownFor {
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
-  id: number;
-  media_type: string;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  release_date: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-}
-
-export interface DiscoverPeople {
+export interface DiscoverActors {
   page: number;
   total_pages: number;
   total_results: number;
-  results: People[];
+  results: Actors[];
 }
 
+// ========== Multi-Search ==========
 
 export interface SearchResultBase {
   id: number;
@@ -421,4 +361,71 @@ export interface MultiSearchResponse {
   total_results: number;
   total_pages: number;
   results: MultiSearchResult[];
+}
+
+// ========== Actors Interfaces ==========
+
+export interface Actors {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for: KnownFor[];
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  favourite?: boolean;
+}
+
+export interface ActorsProfileDetails {
+  adult: boolean;
+  also_known_as: string[];
+  biography: string;
+  birthday: string;
+  deathday: string | null;
+  gender: number;
+  homepage: string | null;
+  id: number;
+  imdb_id: string;
+  known_for_department: string;
+  name: string;
+  place_of_birth: string;
+  popularity: number;
+  profile_path: string | null;
+}
+
+export interface ActorsResponse {
+  page: number;
+  total_results: number;
+  total_pages: number;
+  results: Actors[];
+}
+
+export interface ActorsListPageTemplateProps {
+  actors: Actors[];
+  title: string;
+  action: (m: Actors) => React.ReactNode;
+  page: number;
+  totalPages?: number;
+  onPrevious: () => void;
+  onNext: () => void;
+}
+
+export interface KnownFor {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  media_type: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
 }
