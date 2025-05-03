@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { useState } from "react";
-import FilterCard from "../filterTvShowsCard/index";
+import FilterCard from "../filterTvShowsCard/Index";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
@@ -47,7 +47,7 @@ const TvShowFilterUI: React.FC<TvShowFilterUIProps> = ({
       <Fab
         color="secondary"
         onClick={() => setDrawerOpen(true)}
-        sx={styles.fab} // Use sx prop for styling
+        sx={styles.fab}
       >
         <FilterAltIcon />
       </Fab>
