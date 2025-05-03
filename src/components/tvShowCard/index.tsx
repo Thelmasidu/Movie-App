@@ -17,9 +17,9 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import StarIcon from "@mui/icons-material/Star";
 import { red } from "@mui/material/colors";
 import { Link } from "react-router-dom";
-import { MoviesContext } from "../../contexts/moviesContext";
 import { BaseTvShowProps } from "../../types/interfaces";
 import img from "../../images/film-poster-placeholder.png";
+import { TvShowsContext } from "../../contexts/tvShowsContent";
 
 interface TvShowCardProps {
   show: BaseTvShowProps;
@@ -27,7 +27,7 @@ interface TvShowCardProps {
 }
 
 const TvShowCard: React.FC<TvShowCardProps> = ({ show, action }) => {
-  const { favouriteShows } = useContext(MoviesContext);
+  const { favouriteShows } = useContext(TvShowsContext);
   const isFavourite = favouriteShows.includes(show.id);
 
   return (
