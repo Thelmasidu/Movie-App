@@ -6,7 +6,7 @@ import HomePage from "./pages/homePage";
 import TvShowsPage from "./pages/tvShowsPage";
 import MoviePage from "./pages/movieDetailsPage";
 import ActorsPage from "./pages/actorsPage";
-import SearchPage from "./pages/searchInputPage";
+import SearchPage from "./pages/SearchInputPage";
 import TvShowPage from "./pages/tvShowDetailPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
@@ -16,7 +16,8 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from "./pages/addMovieReviewPage";
-import TvShowsContextProvider from "./contexts/tvShowsContent";
+import ActorDetailsPage from "./pages/actorDetailsPage";
+import TvShowsContextProvider from "./contexts/tvShowsContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -50,6 +51,7 @@ const App = () => {
               <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
               <Route path="/movies/search" element={<SearchPage />} />
               <Route path="/actors" element={<ActorsPage />} />
+              <Route path="/actors/:id" element={<ActorDetailsPage />} />
             </Routes>
           </TvShowsContextProvider>
         </MoviesContextProvider>
