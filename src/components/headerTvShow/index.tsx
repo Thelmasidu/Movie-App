@@ -1,49 +1,30 @@
-import React, { useState, useEffect } from "react";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import HomeIcon from "@mui/icons-material/Home";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { ListedMovie, ShowT } from "../../types/interfaces";
-import { Avatar, IconButton } from "@mui/material";
-import { styles } from "./styles";
+import { red } from "@mui/material/colors";
 
-const TvShowHeader: React.FC<ShowT> = (props) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  useEffect(() => {
-    const favorites: ListedMovie[] = JSON.parse(
-      localStorage.getItem("favourites") || "[]"
-    );
-    setIsFavorite(favorites.some((movie) => movie.id === props.id));
-  }, [props.id]);
-
-  return (
-    <Paper elevation={3} sx={styles.root}>
-      {isFavorite && (
-        <Avatar sx={styles.favoriteIcon}>
-          <FavoriteIcon />
-        </Avatar>
-      )}
-
-      <Typography variant="h4" component="h3" sx={styles.title}>
-        {props.name}
-        {props.homepage && (
-          <IconButton
-            href={props.homepage}
-            target="_blank"
-            color="primary"
-            size="large"
-          >
-            <HomeIcon />
-          </IconButton>
-        )}
-      </Typography>
-
-      <Typography variant="subtitle1" sx={styles.tagline}>
-        {props.tagline}
-      </Typography>
-    </Paper>
-  );
+export const styles = {
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: 2,
+    gap: 2,
+    textAlign: "center",
+  },
+  favoriteIcon: {
+    bgcolor: red[500],
+    width: 48,
+    height: 48,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    display: "flex",
+    alignItems: "center",
+    gap: 1,
+    fontWeight: "bold",
+  },
+  tagline: {
+    fontStyle: "italic",
+    color: "gray",
+  },
 };
-
-export default TvShowHeader;
