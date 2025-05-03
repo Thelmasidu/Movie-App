@@ -1,18 +1,15 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { useState, useCallback } from "react";
-import { BaseMovieProps, BaseTvShowProps, People } from "../types/interfaces";
+import { BaseMovieProps, Actors } from "../types/interfaces";
 import { Review } from "../types/interfaces";
 
 interface MovieContextInterface {
   favourites: number[];
-  favouriteShows: number[];
-  favouritePeople: number[];
+  favouriteActors: number[];
   addToFavourites: (movie: BaseMovieProps) => void;
-  addToFavouriteShows: (show: BaseTvShowProps) => void;
-  addToFavouritePeople: (person: People) => void;
+  addActorsToFavourite: (actor: Actors) => void;
   removeFromFavourites: (movie: BaseMovieProps) => void;
-  removeShowsFromFavourites: (movie: BaseTvShowProps) => void;
-  removeFromFavouritePeople: (people: People) => void;
+  removeActorsFromFavourite: (actor: Actors) => void;
   addReview: (movie: BaseMovieProps, review: Review) => void;
   addToMustWatch: (movie: BaseMovieProps) => void;
   mustWatch: number[];
@@ -20,21 +17,14 @@ interface MovieContextInterface {
 
 const initialContextState: MovieContextInterface = {
   favourites: [],
-  favouriteShows: [],
-  favouritePeople: [],
+  favouriteActors: [],
   addToFavourites: () => {},
-  addToFavouriteShows: (show) => {
-    show.id;
-  },
-  addToFavouritePeople: (person) => {
-    person.id;
+  addActorsToFavourite: (actor) => {
+    actor.id;
   },
   removeFromFavourites: () => {},
-  removeShowsFromFavourites: (show) => {
-    show.id;
-  },
-  removeFromFavouritePeople: (person) => {
-    person.id;
+  removeActorsFromFavourite: (actor) => {
+    actor.id;
   },
   addReview: () => {},
   mustWatch: [],
@@ -50,8 +40,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
   const [myReviews, setMyReviews] = useState<Review[]>([]);
   const [favourites, setFavourites] = useState<number[]>([]);
   const [mustWatch, setMustWatch] = useState<number[]>([]);
-  const [favouriteShows, setFavouriteShows] = useState<number[]>([]);
-  const [favouritePeople, setFavouritePeople] = useState<number[]>([]);
+  const [favouriteActors, setFavouriteActors] = useState<number[]>([]);
 
   const addToFavourites = useCallback((movie: BaseMovieProps) => {
     setFavourites((prev) =>
@@ -59,32 +48,20 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
     );
   }, []);
 
-  const addToFavouritePeople = (person: People) => {
-    const updatedFavouritePeople = [...favouritePeople];
-    if (!favouritePeople.includes(person.id)) {
-      updatedFavouritePeople.push(person.id);
+  const addActorsToFavourite = (actor: Actors) => {
+    const updatedFavouriteActors = [...favouriteActors];
+    if (!favouriteActors.includes(actor.id)) {
+      updatedFavouriteActors.push(actor.id);
     }
-    setFavouritePeople(updatedFavouritePeople);
-  };
-
-  const addToFavouriteShows = (show: BaseTvShowProps) => {
-    const updatedFavouriteShows = [...favouriteShows];
-    if (!favouriteShows.includes(show.id)) {
-      updatedFavouriteShows.push(show.id);
-    }
-    setFavouriteShows(updatedFavouriteShows);
+    setFavouriteActors(updatedFavouriteActors);
   };
 
   const removeFromFavourites = useCallback((movie: BaseMovieProps) => {
     setFavourites((prev) => prev.filter((id) => id !== movie.id));
   }, []);
 
-  const removeShowsFromFavourites = (show: BaseTvShowProps) => {
-    setFavouriteShows(favouriteShows.filter((sId) => sId !== show.id));
-  };
-
-  const removeFromFavouritePeople = (person: People) => {
-    setFavouritePeople(favouritePeople.filter((aId) => aId !== person.id));
+  const removeActorsFromFavourite = (actor: Actors) => {
+    setFavouriteActors(favouriteActors.filter((aId) => aId !== actor.id));
   };
 
   const addReview = (movie: BaseMovieProps, review: Review) => {
@@ -108,12 +85,9 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({
         addReview,
         mustWatch,
         addToMustWatch,
-        favouriteShows,
-        addToFavouriteShows,
-        removeShowsFromFavourites,
-        addToFavouritePeople,
-        favouritePeople,
-        removeFromFavouritePeople,
+        addActorsToFavourite,
+        favouriteActors,
+        removeActorsFromFavourite,
       }}
     >
       {children}
