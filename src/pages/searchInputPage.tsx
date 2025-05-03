@@ -9,7 +9,7 @@ import {
   TVShowResult,
   ListedMovie,
   BaseTvShowProps,
-  People,
+  Actors,
 } from "../types/interfaces";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 import AddShowsToFavouritesIcon from "../components/cardIcons/addShowsToFavouriteIcon";
@@ -18,8 +18,8 @@ import { Box, Grid, Typography } from "@mui/material";
 import TvShowCard from "../components/tvShowCard";
 import { useState } from "react";
 import Pagination from "../components/pagination";
-import PeopleCard from "../components/peopleCard";
-import AddPersonToFavouritesIcon from "../components/cardIcons/addPersonToFavouriteIcon";
+import PeopleCard from "../components/actorsCard";
+import AddPersonToFavouritesIcon from "../components/cardIcons/addActorToFavouritesIcon";
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
@@ -71,11 +71,11 @@ const SearchPage = () => {
       );
     },
     person: (result) => {
-      const person = result as People;
+      const actor = result as Actors;
       return (
         <PeopleCard
-          person={person}
-          action={(person: People) => <AddPersonToFavouritesIcon {...person} />}
+          actor={actor}
+          action={(actor: Actors) => <AddPersonToFavouritesIcon {...actor} />}
         />
       );
     },
@@ -86,7 +86,23 @@ const SearchPage = () => {
     return renderFn ? renderFn(result) : null;
   };
   return (
-    <>
+    <Box sx={{ padding: 2 }}>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        mt={4}
+        mb={4}
+      >
+        <Typography
+          variant="h4"
+          gutterBottom
+          textAlign="center"
+          fontWeight="bold"
+        >
+          Search Results for "{query}"
+        </Typography>
+      </Box>
       {data && data.results.length > 0 ? (
         <Grid item container spacing={1}>
           {data.results.map((result) => (
@@ -113,7 +129,7 @@ const SearchPage = () => {
         totalPages={data ? data.total_pages : 1}
         onPageChange={setPage}
       />
-    </>
+    </Box>
   );
 };
 

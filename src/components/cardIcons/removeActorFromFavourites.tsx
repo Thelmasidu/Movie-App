@@ -2,14 +2,14 @@ import React, { MouseEvent, useContext } from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { MoviesContext } from "../../contexts/moviesContext";
-import { People } from "../../types/interfaces";
+import { Actors } from "../../types/interfaces";
 
-const RemovePersonFromFavouritesIcon: React.FC<People> = (person) => {
+const RemovePersonFromFavouritesIcon: React.FC<Actors> = (actor) => {
   const context = useContext(MoviesContext);
 
   const onUserRequest = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    context.removeFromFavouritePeople(person);
+    context.removeActorsFromFavourite(actor);
   };
 
   return (

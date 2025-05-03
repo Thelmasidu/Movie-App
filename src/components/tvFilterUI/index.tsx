@@ -47,7 +47,7 @@ const TvShowFilterUI: React.FC<TvShowFilterUIProps> = ({
       <Fab
         color="secondary"
         onClick={() => setDrawerOpen(true)}
-        sx={styles.fab} // Use sx prop for styling
+        sx={styles.fab}
       >
         <FilterAltIcon />
       </Fab>

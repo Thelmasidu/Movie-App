@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "../headerMovieList";
 import Grid from "@mui/material/Grid";
-import { PeopleListPageTemplateProps } from "../../types/interfaces";
+import { ActorsListPageTemplateProps } from "../../types/interfaces";
 import { Box } from "@mui/material";
-import PeopleList from "../peopleList";
+import ActorsList from "../actorsList";
 
-const PeopleListPageTemplate: React.FC<PeopleListPageTemplateProps> = ({
-  people,
+const ActorsListPageTemplate: React.FC<ActorsListPageTemplateProps> = ({
+  actors,
   title,
   action,
   page,
@@ -25,10 +25,10 @@ const PeopleListPageTemplate: React.FC<PeopleListPageTemplateProps> = ({
       />
       <Box sx={{ p: 1 }}>
         <Grid item container spacing={1}>
-          <PeopleList action={action} people={people} />
+          <ActorsList action={action} actors={actors} />
         </Grid>
       </Box>
     </Box>
   );
 };
-export default PeopleListPageTemplate;
+export default ActorsListPageTemplate;

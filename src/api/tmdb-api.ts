@@ -90,6 +90,8 @@ export const getMovieReviews = (id: string | number) => {
     });
 };
 
+// src/api/tmdb-api.ts
+
 export const getUpcomingMovies = async () => {
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/upcoming?api_key=${
@@ -229,7 +231,7 @@ export const fetchMultiSearchResults = (
     });
 };
 
-export const fetchPeople = (page: number = 1) => {
+export const fetchActors = (page: number = 1) => {
   return fetch(
     `https://api.themoviedb.org/3/person/popular?api_key=${
       import.meta.env.VITE_TMDB_KEY
@@ -247,7 +249,7 @@ export const fetchPeople = (page: number = 1) => {
     });
 };
 
-export const fetchPersonDetails = (id: string) => {
+export const fetchActorDetails = (id: string) => {
   return fetch(
     `https://api.themoviedb.org/3/person/${id}?api_key=${
       import.meta.env.VITE_TMDB_KEY
