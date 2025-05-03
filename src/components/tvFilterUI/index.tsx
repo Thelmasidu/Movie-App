@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { useState } from "react";
-import FilterCard from "../filterTvShowsCard/Index";
+import FilterCard from "../filterTvShowsCard/index";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
