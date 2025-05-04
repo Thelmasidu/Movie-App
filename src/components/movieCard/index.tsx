@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { ListedMovie } from "../../types/interfaces";
 import img from "../../images/film-poster-placeholder.png";
+import { useTheme } from "@mui/material/styles";
 
 interface MovieCardProps {
   movie: ListedMovie;
@@ -28,13 +29,16 @@ interface MovieCardProps {
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie, action }) => {
   const { favourites } = useContext(MoviesContext);
+  const theme = useTheme();
   const isFavourite = favourites.includes(movie.id);
 
   return (
     <Card
       sx={{
-        borderRadius: 1,
+        borderRadius: 2,
         boxShadow: 3,
+        backgroundColor: theme.palette.background.paper,
+        color: theme.palette.text.primary,
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
         "&:hover": {
           transform: "translateY(-5px)",
@@ -44,7 +48,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, action }) => {
     >
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }}>
+          <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
             {movie.title.charAt(0).toUpperCase()}
           </Avatar>
         }
@@ -103,9 +107,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, action }) => {
             sx={{
               textTransform: "none",
               fontWeight: 500,
-              backgroundColor: "#1976d2",
+              bgcolor: theme.palette.primary.main,
               "&:hover": {
-                backgroundColor: "#115293",
+                bgcolor: theme.palette.primary.dark,
               },
             }}
           >
