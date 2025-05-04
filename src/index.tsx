@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
@@ -18,6 +17,8 @@ import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from "./pages/addMovieReviewPage";
 import ActorDetailsPage from "./pages/actorDetailsPage";
 import TvShowsContextProvider from "./contexts/tvShowsContent";
+import SimilarMoviesPage from "./pages/similarMoviesPage";
+import ThemeContextProvider from "./contexts/themeContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,31 +33,40 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <SiteHeader />
-        <MoviesContextProvider>
-          <TvShowsContextProvider>
-            <Routes>
-              <Route
-                path="/movies/favourites"
-                element={<FavouriteMoviesPage />}
-              />
-              <Route path="/movies/:id" element={<MoviePage />} />
-              <Route path="/tv-shows/:id" element={<TvShowPage />} />
-              <Route path="/" element={<HomePage />} />
-              <Route path="/tv-shows" element={<TvShowsPage />} />
-              <Route path="*" element={<Navigate to="/" />} />
-              <Route path="/reviews/:id" element={<MovieReviewPage />} />
-              <Route path="/reviews/form" element={<AddMovieReviewPage />} />
-              <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-              <Route path="/movies/search" element={<SearchPage />} />
-              <Route path="/actors" element={<ActorsPage />} />
-              <Route path="/actors/:id" element={<ActorDetailsPage />} />
-            </Routes>
-          </TvShowsContextProvider>
-        </MoviesContextProvider>
-      </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ThemeContextProvider>
+        <BrowserRouter>
+          <SiteHeader />
+          <MoviesContextProvider>
+            <TvShowsContextProvider>
+              <Routes>
+                <Route
+                  path="/movies/favourites"
+                  element={<FavouriteMoviesPage />}
+                />
+                <Route path="/movies/:id" element={<MoviePage />} />
+                <Route
+                  path="/movies/upcoming"
+                  element={<UpcomingMoviesPage />}
+                />
+                <Route path="/movies/search" element={<SearchPage />} />
+                <Route
+                  path="/movies/similar-movies/:id"
+                  element={<SimilarMoviesPage />}
+                />
+                <Route path="/reviews/form" element={<AddMovieReviewPage />} />
+                <Route path="/tv-shows/:id" element={<TvShowPage />} />
+                <Route path="/" element={<HomePage />} />
+                <Route path="/tv-shows" element={<TvShowsPage />} />
+                <Route path="*" element={<Navigate to="/" />} />
+                <Route path="/reviews/:id" element={<MovieReviewPage />} />
+                <Route path="/actors" element={<ActorsPage />} />
+                <Route path="/actors/:id" element={<ActorDetailsPage />} />
+              </Routes>
+            </TvShowsContextProvider>
+          </MoviesContextProvider>
+        </BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </ThemeContextProvider>
     </QueryClientProvider>
   );
 };
