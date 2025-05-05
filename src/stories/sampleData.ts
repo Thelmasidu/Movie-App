@@ -70,6 +70,7 @@ export default {
     {
       iso_639_1: "en",
       name: "English",
+      english_name: "English",
     },
   ],
   status: "Released",
