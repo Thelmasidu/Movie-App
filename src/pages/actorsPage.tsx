@@ -20,7 +20,7 @@ import { DiscoverActors, Actors, ActorsSortOption } from "../types/interfaces";
 import PageTemplate from "../components/templateActorsListPage";
 import Spinner from "../components/spinner";
 import Pagination from "../components/pagination";
-import AddActorToFavouritesIcon from "../components/cardIcons/AddActorToFavouritesIcon";
+import AddActorToFavouritesIcon from "../components/cardIcons/addActorToFavouritesIcon";
 import { sortActors } from "../utils/actorSortUtils";
 
 const sortOptions = [
