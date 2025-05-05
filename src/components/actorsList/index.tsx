@@ -8,7 +8,7 @@ interface ActorsProps {
   action: (m: Actors) => React.ReactNode;
 }
 
-const PeopleList: React.FC<ActorsProps> = (props) => {
+const ActorsList: React.FC<ActorsProps> = (props) => {
   const actors = props.actors;
 
   return (
@@ -22,4 +22,4 @@ const PeopleList: React.FC<ActorsProps> = (props) => {
   );
 };
 
-export default PeopleList;
+export default ActorsList;
