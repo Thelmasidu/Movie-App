@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import MovieListHeader from "../components/headerMovieList";
 import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
-import React from 'react';
 
 const meta = {
     title: 'Home Page/Header',
@@ -18,8 +17,13 @@ const meta = {
   type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  args:{ title:'Discover Movies'}
-
+  args: {
+    title: "Discover Movies",
+    page: 1,
+    totalPages: 5, 
+    onPrevious: () => console.log("Previous clicked"),
+    onNext: () => console.log("Next clicked"),
+  },
 };
-Basic.storyName = "Default";
 
+Basic.storyName = "Default";

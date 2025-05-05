@@ -1,13 +1,25 @@
 import React, { useState } from "react";
-import { Box, Chip, Divider } from "@mui/material";
-import { Fab, Grid, Stack, Typography } from "@mui/material";
-import Drawer from "@mui/material/Drawer";
+import { Link as RouterLink } from "react-router-dom"; 
+import CardActionArea from "@mui/material/CardActionArea";
+import {
+  Box,
+  Chip,
+  Divider,
+  Fab,
+  Grid,
+  Stack,
+  Typography,
+  Drawer,
+  Card,
+  CardContent,
+  CardMedia,
+} from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MonetizationIcon from "@mui/icons-material/MonetizationOn";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import MovieReviews from "../movieReviews";
-import { MovieDetailsProps } from "../../types/interfaces";
+import { CastMember, MovieDetailsProps } from "../../types/interfaces";
 import {
   BudgetText,
   CenteredText,
@@ -16,7 +28,15 @@ import {
   StyledPaper,
 } from "./movieDetails.styled";
 
-const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
+export interface MovieDetailsComponentProps {
+  movie: MovieDetailsProps;
+  cast: CastMember[];
+}
+
+const MovieDetails: React.FC<MovieDetailsComponentProps> = ({
+  movie,
+  cast,
+}) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -127,6 +147,61 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
             </BudgetText>
           </>
         )}
+
+        <Divider sx={{ my: 4 }} />
+
+        <CenteredText variant="h5" gutterBottom>
+          Top Cast
+        </CenteredText>
+        <Grid container spacing={3} justifyContent="center">
+          {cast.slice(0, 12).map((actor) => (
+            <Grid item key={actor.id} xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Card
+                sx={{
+                  maxWidth: 345,
+                  borderRadius: 3,
+                  boxShadow: 3,
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <CardActionArea
+                  component={RouterLink}
+                  to={`/actors/${actor.id}`}
+                >
+                  <CardMedia
+                    component="img"
+                    height="300"
+                    image={
+                      actor.profile_path
+                        ? `https://image.tmdb.org/t/p/w300${actor.profile_path}`
+                        : "https://via.placeholder.com/300x450?text=No+Image"
+                    }
+                    alt={actor.name}
+                  />
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      component="div"
+                      noWrap
+                    >
+                      {actor.name}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                      noWrap
+                    >
+                      as {actor.character}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       </StyledPaper>
 
       <Fab
@@ -143,6 +218,19 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
         <NavigationIcon sx={{ mr: 1 }} />
         Reviews
       </Fab>
+
+      <Box mt={4} textAlign="center">
+        <Fab
+          variant="extended"
+          color="primary"
+          component={RouterLink}
+          to={`/movies/similar-movies/${movie.id}`}
+          sx={{ borderRadius: 3 }}
+        >
+          <NavigationIcon sx={{ mr: 1 }} />
+          Go to Similar Movies
+        </Fab>
+      </Box>
 
       <Drawer
         anchor="bottom"

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { getTheme, baseColors, ThemeName } from "../themes";
-import { ThemeContext } from "./themeContextUtils";
+import { ThemeContext } from "../utils/themeContextUtils";
 
 const ThemeContextProvider: React.FC<React.PropsWithChildren> = ({
   children,
