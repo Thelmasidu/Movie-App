@@ -19,7 +19,7 @@ import {
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import { useTheme } from "@mui/material/styles";
 import { baseColors } from "../../themes";
-import { useThemeContext } from "../../contexts/themeContextUtils";
+import { useThemeContext } from "../../utils/themeContextUtils";
 
 const ThemeSelector: React.FC = () => {
   const { themeName, setThemeName, mode, toggleMode } = useThemeContext();
