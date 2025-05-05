@@ -322,3 +322,21 @@ export const fetchKnownFor = (actorId: string) => {
       throw error;
     });
 };
+
+export const fetchSimilarMovies = (movie_id: string, page: number = 1) => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/${movie_id}/similar?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }&language=en-US&page=${page}`
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch similar movies. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
+};

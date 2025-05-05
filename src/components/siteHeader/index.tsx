@@ -15,6 +15,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 import SearchInput from "../searchHeader";
+import ThemeSelector from "../themeSelector";
 
 // Custom styled offset to avoid content being hidden under fixed AppBar
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -116,6 +117,9 @@ const SiteHeader: React.FC = () => {
                 ))}
               </Stack>
             )}
+          </Box>
+          <Box>
+            <ThemeSelector />
           </Box>
         </Toolbar>
       </AppBar>
