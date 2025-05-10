@@ -1,5 +1,6 @@
 // Filter Options
 export type FilterOption = "title" | "genre";
+
 export type ActorsSortOption =
   | "name-asc"
   | "name-desc"
@@ -7,7 +8,7 @@ export type ActorsSortOption =
   | "popularity-desc"
   | "gender-asc"
   | "gender-desc";
-
+  
 // ========== Common Interfaces ==========
 
 export interface Genre {
@@ -283,6 +284,7 @@ export interface TvCastMember extends CrewMember {
 }
 
 export interface CastMember {
+  known_for: boolean;
   adult: boolean;
   gender: number;
   id: number;
@@ -457,3 +459,4 @@ export interface Cast {
   favourite?: boolean;
   known_for: KnownFor[];
 }
+
