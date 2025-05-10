@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
-
 import HomePage from "./pages/homePage";
 import TvShowsPage from "./pages/tvShowsPage";
 import MoviePage from "./pages/movieDetailsPage";
@@ -17,18 +16,19 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from "./pages/addMovieReviewPage";
 import ActorDetailsPage from "./pages/actorDetailsPage";
-import TvShowsContextProvider from "./contexts/tvShowsContent";
+import ActorsContextProvider from "./contexts/actorsContext";
+import TvShowsContextProvider from "./contexts/tvShowsContext";
 import SimilarMoviesPage from "./pages/similarMoviesPage";
 import ThemeContextProvider from "./contexts/themeContext";
 import StorybookSupportPage from "./pages/storyBookSupportPage"; 
 import LoginPage from "./pages/logInPage";
 import SignUpPage from "./pages/signUpPage";
 
-
 // 🆕 Fantasy Movie components
 import CreateFantasyMovie from "./components/fantasyMovie/createFantasyMovie";
 import FantasyMovieList from "./components/fantasyMovie/fantasyMovieDetail";
 import FantasyMovieDetail from "./components/fantasyMovie/fantasyMovieList";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +48,7 @@ const App = () => {
           <SiteHeader />
           <MoviesContextProvider>
             <TvShowsContextProvider>
+              <ActorsContextProvider>
               <Routes>
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/tv-shows" element={<TvShowsPage />} />
@@ -73,6 +74,7 @@ const App = () => {
 
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
+              </ActorsContextProvider>
             </TvShowsContextProvider>
           </MoviesContextProvider>
         </BrowserRouter>

@@ -3,7 +3,7 @@ import ActorList from "../components/actorsList";
 import SampleActorData from "./sampleActorData";
 import { MemoryRouter } from "react-router";
 
-import AddActorToFavouritesIcon from "../components/cardIcons/AddActorToFavouritesIcon";
+import AddActorToFavouritesIcon from "../components/cardIcons/addActorToFavouritesIcon";
 import Grid from "@mui/material/Grid";
 import ActorsContextProvider from "../contexts/moviesContext";
 

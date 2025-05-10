@@ -3,7 +3,7 @@ import TvList from "../components/tvList";
 import SampleTvShow from "./sampleTvData";
 import { MemoryRouter } from "react-router";
 
-import AddShowsToFavouritesIcon from "../components/cardIcons/AddShowsToFavouritesIcon";
+import AddShowsToFavouritesIcon from "../components/cardIcons/addActorToFavouritesIcon";
 import Grid from "@mui/material/Grid";
 import TvShowsContextProvider from "../contexts/tvShowsContext";
 
@@ -39,7 +39,7 @@ export const TvListDefaultView = () => {
     <Grid container spacing={1}>
       <TvList
         shows={sampleShows}
-        action={(tvShow) => <AddShowsToFavouritesIcon {...tvShow} />}
+        action={(tvShow) => <AddShowsToFavouritesIcon adult={false} gender={0} known_for={[]} known_for_department={""} profile_path={""} {...tvShow} />}
       />
     </Grid>
   );
