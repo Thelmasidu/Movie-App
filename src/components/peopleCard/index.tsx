@@ -11,7 +11,6 @@ import {
   Tooltip,
   Button,
   Box,
-  Chip,
   Stack,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -19,13 +18,14 @@ import PersonIcon from "@mui/icons-material/Person";
 import { red } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 import { MoviesContext } from "../../contexts/moviesContext";
-import { People } from "../../types/interfaces";
+import { CastMember } from "../../types/interfaces";
 import img from "../../images/film-poster-placeholder.png";
 
 interface PeopleCardProps {
-  person: People;
-  action: (p: People) => React.ReactNode;
+  person: CastMember;
+  action: (p: CastMember) => React.ReactNode;
 }
+
 
 const PeopleCard: React.FC<PeopleCardProps> = ({ person, action }) => {
   const { favourites } = useContext(MoviesContext);
@@ -90,26 +90,13 @@ const PeopleCard: React.FC<PeopleCardProps> = ({ person, action }) => {
           Popularity: {person.popularity.toFixed(1)}
         </Typography>
 
-        {person.known_for && person.known_for.length > 0 && (
+        {person.known_for && person.known_for == true && (
           <Box mt={1}>
             <Typography variant="subtitle2" gutterBottom>
               Known For:
             </Typography>
             <Stack direction="row" spacing={1} flexWrap="wrap">
-              {person.known_for.map((item, index) => (
-                <Tooltip
-                  key={index}
-                  title={`${item.title || item.original_title || "Untitled"} (${
-                    item.media_type
-                  })`}
-                >
-                  <Chip
-                    label={item.title || item.original_title || "Untitled"}
-                    size="small"
-                    sx={{ mb: 0.5 }}
-                  />
-                </Tooltip>
-              ))}
+              
             </Stack>
           </Box>
         )}
