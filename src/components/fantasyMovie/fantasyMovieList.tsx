@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import  { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 type CastMember = {
   actorName: string;
@@ -15,30 +15,30 @@ type FantasyMovie = {
   createdAt: string;
 };
 
-const FantasyMovieDetail = () => {
-  const { id } = useParams<{ id: string }>();
-  const [movie, setMovie] = useState<FantasyMovie | null>(null);
+const FantasyMovieList = () => {
+  const [movies, setMovies] = useState<FantasyMovie[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchMovie = async () => {
+    const fetchMovies = async () => {
       setLoading(true);
       const stored = localStorage.getItem("fantasyMovies");
       if (stored) {
         try {
-          const parsed: FantasyMovie[] = JSON.parse(stored);
-          const found = parsed.find((m) => m.id === id);
-          setMovie(found || null);
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            setMovies(parsed);
+          }
         } catch (error) {
-          console.error("Error parsing fantasyMovies:", error);
+          console.error("Failed to parse fantasyMovies from localStorage:", error);
         }
       }
       // Add slight delay for transition effect
       setTimeout(() => setLoading(false), 300);
     };
     
-    fetchMovie();
-  }, [id]);
+    fetchMovies();
+  }, []);
 
   if (loading) {
     return (
@@ -66,53 +66,6 @@ const FantasyMovieDetail = () => {
     );
   }
 
-  if (!movie) {
-    return (
-      <div style={{
-        maxWidth: '800px',
-        margin: '2rem auto',
-        padding: '2rem',
-        borderRadius: '16px',
-        backgroundColor: 'white',
-        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
-        animation: 'fadeIn 0.5s ease-out',
-      }}>
-        <h2 style={{
-          fontSize: '1.75rem',
-          fontWeight: '700',
-          color: '#dc2626',
-          marginBottom: '1rem',
-        }}>Movie not found</h2>
-        <p style={{
-          fontSize: '1.1rem',
-          color: '#4b5563',
-          lineHeight: '1.6',
-        }}>
-          The movie with ID <strong>{id}</strong> could not be found.
-        </p>
-        <Link to="/fantasy" style={{
-          display: 'inline-block',
-          marginTop: '1.5rem',
-          padding: '0.75rem 1.5rem',
-          backgroundColor: '#3b82f6',
-          color: 'white',
-          borderRadius: '8px',
-          textDecoration: 'none',
-          fontWeight: '500',
-          transition: 'all 0.3s ease',
-        }}>
-          Back to Movie List
-        </Link>
-        <style>{`
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-        `}</style>
-      </div>
-    );
-  }
-
   return (
     <div style={{
       maxWidth: '900px',
@@ -123,8 +76,6 @@ const FantasyMovieDetail = () => {
       boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       overflow: 'hidden',
       animation: 'fadeIn 0.6s ease-out',
-      display: 'flex',
-      flexDirection: 'column',
     }}>
       <style>{`
         @keyframes fadeIn {
@@ -137,210 +88,329 @@ const FantasyMovieDetail = () => {
           to { opacity: 1; transform: translateX(0); }
         }
         
-        @keyframes pulse {
-          0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
-          70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
         }
         
-        .cast-item:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        .movie-card {
+          transition: all 0.3s ease;
         }
         
-        .back-button:hover {
-          background-color: #2563eb;
+        .movie-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.15);
+        }
+        
+        .movie-poster-container {
+          overflow: hidden;
+          transition: all 0.4s ease;
+        }
+        
+        .movie-poster {
+          transition: all 0.5s ease;
+        }
+        
+        .movie-card:hover .movie-poster {
+          transform: scale(1.08);
+        }
+        
+        .create-button:hover {
           transform: translateY(-2px);
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+          box-shadow: 0 6px 15px -3px rgba(59, 130, 246, 0.5);
         }
       `}</style>
-
-      {/* Hero section with poster and title overlay */}
+      
+      {/* Header with gradient background */}
       <div style={{
+        padding: '2.5rem 2rem',
+        background: 'linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)',
+        color: 'white',
         position: 'relative',
-        height: '300px',
-        width: '100%',
         overflow: 'hidden',
       }}>
-        {movie.poster && (
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            backgroundImage: `url(${movie.poster})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'blur(2px) brightness(0.7)',
-            zIndex: 1,
-          }} />
-        )}
-        
         <div style={{
           position: 'absolute',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
-          padding: '2rem',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: 'radial-gradient(circle at 20% 150%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 40%)',
+          zIndex: 1,
+        }}></div>
+        
+        <div style={{
+          position: 'relative',
           zIndex: 2,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}>
-          <h1 style={{
-            fontSize: '2.5rem',
-            fontWeight: '800',
-            color: 'white',
-            marginBottom: '0.5rem',
-            textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
-          }}>{movie.title}</h1>
+          <h2 style={{
+            fontSize: '2rem',
+            fontWeight: '700',
+            textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+            margin: 0,
+          }}>Fantasy Movies</h2>
           
-          <p style={{
-            fontSize: '1rem',
-            color: 'rgba(255, 255, 255, 0.8)',
-            fontWeight: '500',
-          }}>Created on: {new Date(movie.createdAt).toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          })}</p>
+          <Link to="/fantasy/create" style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            backgroundColor: 'white',
+            color: '#1e40af',
+            padding: '0.75rem 1.5rem',
+            borderRadius: '8px',
+            fontWeight: '600',
+            textDecoration: 'none',
+            transition: 'all 0.3s ease',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+          }} className="create-button">
+            <span style={{ marginRight: '0.5rem', fontSize: '1.1rem' }}>+</span>
+            Create New
+          </Link>
         </div>
       </div>
-
+      
       {/* Content section */}
       <div style={{
         padding: '2rem',
         backgroundColor: 'white',
       }}>
-        {/* Poster and details flex container */}
-        <div style={{
-          display: 'flex',
-          gap: '2rem',
-          marginBottom: '2.5rem',
-          flexWrap: 'wrap',
-        }}>
-          {/* Poster with frame effect */}
-          {movie.poster && (
-            <div style={{
-              flexShrink: 0,
-              position: 'relative',
-              marginTop: '-6rem',
-              zIndex: 3,
-              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3)',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-            }} 
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.03)';
-              e.currentTarget.style.boxShadow = '0 25px 30px -5px rgba(0, 0, 0, 0.4)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.3)';
-            }}>
-              <img
-                src={movie.poster}
-                alt={movie.title}
-                style={{
-                  width: '220px',
-                  height: 'auto',
-                  display: 'block',
-                  objectFit: 'cover',
-                }}
-              />
-            </div>
-          )}
-
-          {/* Movie details */}
+        {movies.length === 0 ? (
           <div style={{
-            flex: '1',
-            minWidth: '280px',
+            textAlign: 'center',
+            padding: '4rem 2rem',
+            borderRadius: '12px',
+            border: '1px dashed #d1d5db',
+            backgroundColor: '#f9fafb',
           }}>
-            <h3 style={{
-              fontSize: '1.75rem',
-              fontWeight: '700',
-              color: '#1e3a8a',
-              marginBottom: '1.5rem',
-              position: 'relative',
-              paddingBottom: '0.75rem',
-            }}>Cast & Characters</h3>
-          </div>
-        </div>
-
-        {/* Cast list */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-          gap: '1.5rem',
-          marginBottom: '2rem',
-        }}>
-          {movie.cast.map((member, index) => (
-            <div 
-              key={index} 
-              className="cast-item"
-              style={{
-                backgroundColor: 'white',
-                borderRadius: '12px',
-                padding: '1.5rem',
-                border: '1px solid #e5e7eb',
-                transition: 'all 0.3s ease',
-                animation: `slideIn 0.5s ease-out ${0.1 * index}s both`,
-                height: '100%',
-              }}
+            <svg 
+              width="80" 
+              height="80" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="#9ca3af" 
+              strokeWidth="1.5" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              style={{ margin: '0 auto 1.5rem' }}
             >
-              <h4 style={{
-                fontSize: '1.25rem',
-                fontWeight: '700',
-                color: '#3b82f6',
-                marginBottom: '0.5rem',
-              }}>{member.actorName}</h4>
-              
-              <p style={{
-                fontSize: '1rem',
-                fontWeight: '600',
-                color: '#6b7280',
-                marginBottom: '0.75rem',
-                fontStyle: 'italic',
-              }}>as {member.roleName}</p>
-              
-              <p style={{
-                fontSize: '0.95rem',
-                color: '#4b5563',
-                lineHeight: '1.5',
-              }}>{member.roleDescription}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Back button */}
-        <Link 
-          to="/fantasy" 
-          className="back-button"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.75rem 1.5rem',
-            backgroundColor: '#3b82f6',
-            color: 'white',
-            borderRadius: '8px',
-            textDecoration: 'none',
-            fontWeight: '600',
-            transition: 'all 0.3s ease',
-            marginTop: '1rem',
-          }}
-        >
-          <span style={{ 
-            display: 'inline-block', 
-            marginRight: '6px',  
-            fontSize: '1.2rem' 
-          }}>←</span> 
-          Back to Movie List
-        </Link>
+              <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+              <line x1="7" y1="2" x2="7" y2="22"></line>
+              <line x1="17" y1="2" x2="17" y2="22"></line>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+            </svg>
+            
+            <h3 style={{
+              fontSize: '1.25rem',
+              fontWeight: '600',
+              color: '#4b5563',
+              marginBottom: '1rem',
+            }}>No fantasy movies saved yet</h3>
+            
+            <p style={{
+              color: '#6b7280',
+              marginBottom: '1.5rem',
+              maxWidth: '400px',
+              margin: '0 auto 1.5rem',
+            }}>
+              Create your first fantasy movie by clicking the button above.
+            </p>
+            
+            <Link to="/fantasy/create" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              padding: '0.75rem 1.5rem',
+              borderRadius: '8px',
+              fontWeight: '600',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+            }} className="create-button">
+              <span style={{ marginRight: '0.5rem', fontSize: '1.1rem' }}>+</span>
+              Create New
+            </Link>
+          </div>
+        ) : (
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem',
+          }}>
+            {movies.map((movie, index) => (
+              <Link
+                key={movie.id}
+                to={`/fantasy/${movie.id}`}
+                style={{
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  display: 'block',
+                }}
+              >
+                <div 
+                  className="movie-card"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '1.5rem',
+                    padding: '1.25rem',
+                    borderRadius: '12px',
+                    backgroundColor: 'white',
+                    border: '1px solid #e5e7eb',
+                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+                    animation: `slideIn 0.4s ease-out ${0.1 * index}s both`,
+                  }}
+                >
+                  {movie.poster ? (
+                    <div className="movie-poster-container" style={{
+                      width: '100px',
+                      height: '150px',
+                      borderRadius: '8px',
+                      overflow: 'hidden',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                      flexShrink: 0,
+                    }}>
+                      <img
+                        src={movie.poster}
+                        alt={movie.title}
+                        className="movie-poster"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div style={{
+                      width: '100px',
+                      height: '150px',
+                      borderRadius: '8px',
+                      backgroundColor: '#e5e7eb',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}>
+                      <svg 
+                        width="30" 
+                        height="30" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="#9ca3af" 
+                        strokeWidth="1.5" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      >
+                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                      </svg>
+                    </div>
+                  )}
+                  
+                  <div style={{
+                    flex: 1,
+                    minWidth: 0,
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                    }}>
+                      <h3 style={{
+                        fontSize: '1.25rem',
+                        fontWeight: '700',
+                        color: '#1e3a8a',
+                        marginBottom: '0.5rem',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}>{movie.title}</h3>
+                      
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '0.25rem 0.75rem',
+                        backgroundColor: '#dbeafe',
+                        color: '#1e40af',
+                        borderRadius: '16px',
+                        fontSize: '0.875rem',
+                        fontWeight: '500',
+                      }}>
+                        {movie.cast.length} {movie.cast.length === 1 ? 'cast member' : 'cast members'}
+                      </div>
+                    </div>
+                    
+                    <p style={{
+                      fontSize: '0.875rem',
+                      color: '#6b7280',
+                      marginBottom: '1rem',
+                    }}>
+                      Created on {new Date(movie.createdAt).toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                      })}
+                    </p>
+                    
+                    <div style={{
+                      display: 'flex',
+                      gap: '0.75rem',
+                    }}>
+                      {movie.cast.slice(0, 3).map((member, i) => (
+                        <div key={i} style={{
+                          backgroundColor: '#f3f4f6',
+                          padding: '0.25rem 0.75rem',
+                          borderRadius: '16px',
+                          fontSize: '0.75rem',
+                          whiteSpace: 'nowrap',
+                        }}>
+                          {member.actorName}
+                        </div>
+                      ))}
+                      
+                      {movie.cast.length > 3 && (
+                        <div style={{
+                          backgroundColor: '#f3f4f6',
+                          padding: '0.25rem 0.75rem',
+                          borderRadius: '16px',
+                          fontSize: '0.75rem',
+                          whiteSpace: 'nowrap',
+                        }}>
+                          +{movie.cast.length - 3} more
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div style={{
+                    color: '#3b82f6',
+                  }}>
+                    <svg 
+                      width="24" 
+                      height="24" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                      style={{
+                        transition: 'transform 0.3s ease',
+                      }}
+                      className="arrow-icon"
+                    >
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default FantasyMovieDetail;
+export default FantasyMovieList;

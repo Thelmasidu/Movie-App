@@ -1,11 +1,11 @@
 import * as React from "react";
-import { People } from "../../types/interfaces";
+import { CastMember } from "../../types/interfaces";
 import { Grid } from "@mui/material";
 import PeopleCard from "../peopleCard";
 
 interface PeopleProps {
-  people: People[];
-  action: (m: People) => React.ReactNode;
+  people: CastMember[];
+  action: (m: CastMember) => React.ReactNode;
 }
 
 const PeopleList: React.FC<PeopleProps> = (props) => {
