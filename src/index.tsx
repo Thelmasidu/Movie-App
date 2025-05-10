@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
@@ -20,7 +19,9 @@ import ActorDetailsPage from "./pages/actorDetailsPage";
 import TvShowsContextProvider from "./contexts/tvShowsContent";
 import SimilarMoviesPage from "./pages/similarMoviesPage";
 import ThemeContextProvider from "./contexts/themeContext";
-import ActorsContextProvider from "./contexts/actorsContext";
+import StorybookSupportPage from "./pages/storyBookSupportPage"; 
+import LoginPage from "./pages/logInPage";
+import SignUpPage from "./pages/signUpPage";
 import CreateFantasyMovie from "./components/fantasyMovie/createFantasyMovie";
 import FantasyMovieList from "./components/fantasyMovie/fantasyMovieDetail";
 import FantasyMovieDetail from "./components/fantasyMovie/fantasyMovieList";
@@ -43,38 +44,31 @@ const App = () => {
           <SiteHeader />
           <MoviesContextProvider>
             <TvShowsContextProvider>
-              <ActorsContextProvider>
-                <Routes>
-                  <Route
-                    path="/movies/favourites"
-                    element={<FavouriteMoviesPage />}
-                  />
-                  <Route path="/movies/:id" element={<MoviePage />} />
-                  <Route
-                    path="/movies/upcoming"
-                    element={<UpcomingMoviesPage />}
-                  />
-                  <Route path="/movies/search" element={<SearchPage />} />
-                  <Route
-                    path="/movies/similar-movies/:id"
-                    element={<SimilarMoviesPage />}
-                  />
-                  <Route
-                    path="/reviews/form"
-                    element={<AddMovieReviewPage />}
-                  />
-                  <Route path="/tv-shows/:id" element={<TvShowPage />} />
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/tv-shows" element={<TvShowsPage />} />
-                  <Route path="*" element={<Navigate to="/" />} />
-                  <Route path="/reviews/:id" element={<MovieReviewPage />} />
-                  <Route path="/actors" element={<ActorsPage />} />
-                  <Route path="/actors/:id" element={<ActorDetailsPage />} />
-                   <Route path="/fantasy/create" element={<CreateFantasyMovie />} />
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/tv-shows" element={<TvShowsPage />} />
+                <Route path="/tv-shows/:id" element={<TvShowPage />} />
+                <Route path="/movies/:id" element={<MoviePage />} />
+                <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
+                <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
+                <Route path="/movies/search" element={<SearchPage />} />
+                <Route path="/movies/similar-movies/:id" element={<SimilarMoviesPage />} />
+                <Route path="/reviews/form" element={<AddMovieReviewPage />} />
+                <Route path="/reviews/:id" element={<MovieReviewPage />} />
+                <Route path="/actors" element={<ActorsPage />} />
+                <Route path="/actors/:id" element={<ActorDetailsPage />} />
+                 <Route path="/storybook/support" element={<StorybookSupportPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+
+                {/* 🆕 Fantasy Movie Routes */}
+                <Route path="/fantasy/create" element={<CreateFantasyMovie />} />
                 <Route path="/fantasy" element={<FantasyMovieList />} />
                 <Route path="/fantasy/:id" element={<FantasyMovieDetail />} />
-                </Routes>
-              </ActorsContextProvider>
+
+
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
             </TvShowsContextProvider>
           </MoviesContextProvider>
         </BrowserRouter>
