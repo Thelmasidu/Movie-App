@@ -28,11 +28,13 @@ const SiteHeader: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const menuOptions = [
-    { label: "Home", path: "/" },
+    { label: "Home", path: "/home" },
     { label: "Favorites", path: "/movies/favourites" },
     { label: "TV Shows", path: "/tv-shows" },
     { label: "Actors", path: "/actors" },
+    { label: "Fantasy Movies", path: "/fantasy/create" },
     { label: "Upcoming", path: "/movies/upcoming" },
+    
   ];
 
   const handleMenuSelect = (pageURL: string) => {
