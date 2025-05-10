@@ -18,7 +18,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import PersonIcon from "@mui/icons-material/Person";
 import { red } from "@mui/material/colors";
 import { Link } from "react-router-dom";
-import { MoviesContext } from "../../contexts/moviesContext";
+import { ActorsContext } from "../../contexts/actorsContext";
 import { Actors } from "../../types/interfaces";
 import img from "../../images/film-poster-placeholder.png";
 
@@ -28,8 +28,8 @@ interface ActorsCardProps {
 }
 
 const ActorsCard: React.FC<ActorsCardProps> = ({ actor, action }) => {
-  const { favourites } = useContext(MoviesContext);
-  const isFavourite = favourites.includes(actor.id);
+  const { favouriteActors } = useContext(ActorsContext);
+  const isFavourite = favouriteActors.includes(actor.id);
 
   return (
     <Card

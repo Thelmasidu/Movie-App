@@ -1,39 +1,52 @@
-import React from "react"; 
+import React from "react";
 import { useParams } from "react-router-dom";
 import MovieDetails from "../components/movieDetails";
 import PageTemplate from "../components/templateMoviePage";
-import { getMovie } from '../api/tmdb-api';
+import { fetchMovieCredits, getMovie } from "../api/tmdb-api";
 import { useQuery } from "react-query";
-import Spinner from '../components/spinner';
-import { MovieDetailsProps } from "../types/interfaces";
+import Spinner from "../components/spinner";
+import { MovieCredits, MovieDetailsProps } from "../types/interfaces";
 
-const MovieDetailsPage: React.FC= () => {
+const MovieDetailsPage: React.FC = () => {
   const { id } = useParams();
-  const { data: movie, error, isLoading, isError } = useQuery<MovieDetailsProps, Error>(
-    ["movie", id],
-    ()=> getMovie(id||"")
+  const {
+    data: movie,
+    error: movieError,
+    isLoading: movieLoading,
+    isError: movieIsError,
+  } = useQuery<MovieDetailsProps, Error>(["movie", id], () =>
+    getMovie(id || "")
+  );
+  const {
+    data: credits,
+    error: creditsError,
+    isLoading: creditsLoading,
+    isError: creditsIsError,
+  } = useQuery<MovieCredits, Error>(["movieCredits", id], () =>
+    fetchMovieCredits(id || "")
   );
 
-  if (isLoading) {
+  if (movieLoading || creditsLoading) {
     return <Spinner />;
   }
 
-  if (isError) {
-    return <h1>{(error as Error).message}</h1>;
+  if (movieIsError) {
+    return <h1>{movieError?.message}</h1>;
   }
 
+  if (creditsIsError) {
+    return <h1>{creditsError?.message}</h1>;
+  }
 
   return (
     <>
-      {movie ? (
+      {movie && credits && (
         <>
-        <PageTemplate movie={movie}> 
-          <MovieDetails {...movie} />
-        </PageTemplate>
-      </>
-    ) : (
-      <p>Waiting for movie details</p>
-    )}
+          <PageTemplate movie={movie}>
+            <MovieDetails movie={movie} cast={credits.cast} />
+          </PageTemplate>
+        </>
+      )}
     </>
   );
 };

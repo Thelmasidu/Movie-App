@@ -12,7 +12,7 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import FilterListIcon from "@mui/icons-material/FilterList";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
 import { fetchActors } from "../api/tmdb-api";
 import { DiscoverActors, Actors, ActorsSortOption } from "../types/interfaces";
@@ -71,7 +71,7 @@ const ActorsPage: React.FC = () => {
         aria-label="filter-sort"
         sx={{ position: "fixed", bottom: matches ? 20 : 70, right: 20 }}
       >
-        <FilterListIcon />
+        <FilterAltIcon />
       </Fab>
 
       {/* Actors list template */}

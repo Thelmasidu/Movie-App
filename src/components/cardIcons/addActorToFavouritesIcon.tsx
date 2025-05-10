@@ -1,12 +1,12 @@
 import React, { MouseEvent, useContext } from "react";
-import { MoviesContext } from "../../contexts/moviesContext";
+import { ActorsContext } from "../../contexts/actorsContext";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Actors } from "../../types/interfaces";
 import { Tooltip } from "@mui/material";
 
 const AddPersonToFavouritesIcon: React.FC<Actors> = (actor) => {
-  const context = useContext(MoviesContext);
+  const context = useContext(ActorsContext);
 
   const onUserSelect = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

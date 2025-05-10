@@ -8,6 +8,7 @@ export const styles = {
     padding: 2,
     gap: 2,
     textAlign: "center",
+    marginTop: 3,
   },
   favoriteIcon: {
     bgcolor: red[500],

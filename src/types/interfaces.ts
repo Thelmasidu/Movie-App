@@ -1,6 +1,5 @@
 // Filter Options
 export type FilterOption = "title" | "genre";
-
 export type ActorsSortOption =
   | "name-asc"
   | "name-desc"
@@ -8,7 +7,7 @@ export type ActorsSortOption =
   | "popularity-desc"
   | "gender-asc"
   | "gender-desc";
-  
+
 // ========== Common Interfaces ==========
 
 export interface Genre {

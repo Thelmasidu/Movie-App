@@ -3,9 +3,9 @@ import ActorList from "../components/actorsList";
 import SampleActorData from "./sampleActorData";
 import { MemoryRouter } from "react-router";
 
-import AddActorToFavouritesIcon from "../components/cardIcons/addActorToFavouritesIcon";
+import AddActorToFavouritesIcon from "../components/cardIcons/AddActorToFavouritesIcon";
 import Grid from "@mui/material/Grid";
-import MoviesContextProvider from "../contexts/moviesContext";
+import ActorsContextProvider from "../contexts/moviesContext";
 
 const meta: Meta<typeof ActorList> = {
   title: "Actors Page/ActorList",
@@ -17,9 +17,9 @@ const meta: Meta<typeof ActorList> = {
       </MemoryRouter>
     ),
     (Story) => (
-      <MoviesContextProvider>
+      <ActorsContextProvider>
         <Story />
-      </MoviesContextProvider>
+      </ActorsContextProvider>
     ),
   ],
 };

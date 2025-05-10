@@ -15,11 +15,12 @@ import RemoveShowsFromFavouritesIcon from "../components/cardIcons/removeShowsFr
 import WriteReview from "../components/cardIcons/writeReview";
 import RemoveActorFromFavouritesIcon from "../components/cardIcons/removeActorFromFavourites";
 import { TvShowsContext } from "../contexts/tvShowsContent";
+import { ActorsContext } from "../contexts/actorsContext";
 
 const FavouriteMoviesPage: React.FC = () => {
-  const { favourites: movieIds, favouriteActors: actorId } =
-    useContext(MoviesContext);
+  const { favourites: movieIds } = useContext(MoviesContext);
   const { favouriteShows: showId } = useContext(TvShowsContext);
+  const { favouriteActors: actorId } = useContext(ActorsContext);
 
   // Create an array of queries and run them in parallel.
   const favouriteMovieQueries = useQueries(
