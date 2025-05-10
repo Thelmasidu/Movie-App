@@ -8,6 +8,7 @@ import { CastMember } from '../types/interfaces';
 const sampleCast: CastMember[] = [
   {
     adult: false,
+    known_for:false,
     gender: 2,
     id: 101,
     known_for_department: "Acting",
