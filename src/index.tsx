@@ -21,6 +21,9 @@ import TvShowsContextProvider from "./contexts/tvShowsContent";
 import SimilarMoviesPage from "./pages/similarMoviesPage";
 import ThemeContextProvider from "./contexts/themeContext";
 import ActorsContextProvider from "./contexts/actorsContext";
+import CreateFantasyMovie from "./components/fantasyMovie/createFantasyMovie";
+import FantasyMovieList from "./components/fantasyMovie/fantasyMovieDetail";
+import FantasyMovieDetail from "./components/fantasyMovie/fantasyMovieList";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -67,6 +70,9 @@ const App = () => {
                   <Route path="/reviews/:id" element={<MovieReviewPage />} />
                   <Route path="/actors" element={<ActorsPage />} />
                   <Route path="/actors/:id" element={<ActorDetailsPage />} />
+                   <Route path="/fantasy/create" element={<CreateFantasyMovie />} />
+                <Route path="/fantasy" element={<FantasyMovieList />} />
+                <Route path="/fantasy/:id" element={<FantasyMovieDetail />} />
                 </Routes>
               </ActorsContextProvider>
             </TvShowsContextProvider>
