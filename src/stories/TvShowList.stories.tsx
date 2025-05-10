@@ -1,10 +1,11 @@
 import type { Meta } from "@storybook/react";
 import TvList from "../components/tvList";
-import SampleTvShow from "./samepleTvData";
+import SampleTvShow from "./sampleTvData";
 import { MemoryRouter } from "react-router";
+
+import AddShowsToFavouritesIcon from "../components/cardIcons/AddShowsToFavouritesIcon";
 import Grid from "@mui/material/Grid";
-import AddShowsToFavouritesIcon from "../components/cardIcons/addShowsToFavouriteIcon";
-import TvShowsContextProvider from "../contexts/tvShowsContent";
+import TvShowsContextProvider from "../contexts/tvShowsContext";
 
 const meta = {
   title: "TV Shows/List View",
