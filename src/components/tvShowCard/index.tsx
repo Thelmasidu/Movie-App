@@ -16,7 +16,7 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import StarIcon from "@mui/icons-material/Star";
-import { TvShowsContext } from "../../contexts/tvShowsContent";
+import { TvShowsContext } from "../../contexts/tvShowsContext";
 import { BaseTvShowProps } from "../../types/interfaces";
 import img from "../../images/film-poster-placeholder.png";
 import { Link } from "react-router-dom";
