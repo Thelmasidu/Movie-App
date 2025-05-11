@@ -30,9 +30,9 @@ const SiteHeader: React.FC = () => {
   const menuOptions = [
     { label: "Home", path: "/home" },
     { label: "Favorites", path: "/movies/favourites" },
-    { label: "TV", path: "/tv-shows" },
+    { label: "TV Shows", path: "/tv-shows" },
     { label: "Actors", path: "/actors" },
-    { label: "Fantasy", path: "/fantasy/create" },
+    { label: "Fantasy Movies", path: "/fantasy/create" },
     { label: "Upcoming", path: "/movies/upcoming" },
     
   ];
@@ -59,7 +59,15 @@ const SiteHeader: React.FC = () => {
             >
               TMDB Client
             </Typography>
-           
+            {!isMobile && (
+              <Typography
+                variant="body2"
+                component="div"
+                sx={{ color: "white" }}
+              >
+                All you ever wanted to know about Movies!
+              </Typography>
+            )}
           </Box>
 
           {/* Center Section: Search Input */}

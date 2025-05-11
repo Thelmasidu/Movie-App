@@ -5,6 +5,7 @@ import { useState } from "react";
 const meta: Meta<typeof PaginationControls> = {
   title: "Components/PaginationControls",
   component: PaginationControls,
+  tags: ["autodocs"],
 };
 export default meta;
 

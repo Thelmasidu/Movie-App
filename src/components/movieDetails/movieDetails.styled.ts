@@ -7,12 +7,6 @@ export const StyledPaper = styled(Box)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius * 2,
   boxShadow: theme.shadows[1],
   marginTop: theme.spacing(4),
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-
-  gap: 2,
-  textAlign: "center",
 }));
 
 export const SectionTitle = styled(Typography)(() => ({

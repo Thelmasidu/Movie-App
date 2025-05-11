@@ -14,7 +14,7 @@ import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
 import RemoveShowsFromFavouritesIcon from "../components/cardIcons/removeShowsFromFavourites";
 import WriteReview from "../components/cardIcons/writeReview";
 import RemoveActorFromFavouritesIcon from "../components/cardIcons/removeActorFromFavourites";
-import { TvShowsContext } from "../contexts/tvShowsContext";
+import { TvShowsContext } from "../contexts/tvShowsContent";
 import { ActorsContext } from "../contexts/actorsContext";
 
 const FavouriteMoviesPage: React.FC = () => {

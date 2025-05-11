@@ -10,7 +10,6 @@ import {
   Grid,
   Stack,
   Typography,
-  useTheme,
 } from "@mui/material";
 import { TVShowDetail } from "../../types/interfaces";
 
@@ -19,7 +18,6 @@ interface TvShowDetailsProps {
 }
 
 const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show }) => {
-  const theme = useTheme();
   const navigate = useNavigate();
 
   const handleSeasonClick = (seasonNumber: number) => {
@@ -27,22 +25,22 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show }) => {
   };
 
   return (
-    <Box sx={{ mt: theme.spacing(3) }}>
-      <Divider sx={{ mb: theme.spacing(2) }}>
+    <Box sx={{ mt: 3 }}>
+      <Divider>
         <Chip label="Overview" color="primary" />
       </Divider>
-      <Typography variant="body1" sx={{ my: theme.spacing(2) }}>
+      <Typography variant="body1" sx={{ my: 2 }}>
         {show.overview}
       </Typography>
 
-      <Divider sx={{ mb: theme.spacing(2) }}>
+      <Divider>
         <Chip label="Genres" color="primary" />
       </Divider>
       <Stack
         direction="row"
         spacing={1}
         justifyContent="center"
-        sx={{ my: theme.spacing(2) }}
+        sx={{ my: 2 }}
         flexWrap="wrap"
       >
         {show.genres.map((g) => (
@@ -50,14 +48,14 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show }) => {
         ))}
       </Stack>
 
-      <Divider sx={{ mb: theme.spacing(2) }}>
+      <Divider>
         <Chip label="Production Countries" color="primary" />
       </Divider>
       <Stack
         direction="row"
         spacing={1}
         justifyContent="center"
-        sx={{ my: theme.spacing(2) }}
+        sx={{ my: 2 }}
         flexWrap="wrap"
       >
         {show.production_countries.map((pc) => (
@@ -65,7 +63,7 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show }) => {
         ))}
       </Stack>
 
-      <Divider sx={{ mb: theme.spacing(2) }}>
+      <Divider>
         <Chip label="Companies & Networks" color="primary" />
       </Divider>
       <Stack
@@ -73,7 +71,7 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show }) => {
         spacing={2}
         justifyContent="center"
         alignItems="center"
-        sx={{ my: theme.spacing(2) }}
+        sx={{ my: 2 }}
         flexWrap="wrap"
       >
         {show.production_companies.map((pc) => (
@@ -108,14 +106,14 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show }) => {
         ))}
       </Stack>
 
-      <Divider sx={{ mb: theme.spacing(2) }}>
+      <Divider>
         <Chip label="Air Dates" color="primary" />
       </Divider>
       <Stack
         direction="row"
         spacing={2}
         justifyContent="center"
-        sx={{ my: theme.spacing(2) }}
+        sx={{ my: 2 }}
         flexWrap="wrap"
       >
         <Chip label={`First Air: ${show.first_air_date}`} />
@@ -126,18 +124,14 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show }) => {
         <Chip label={`Language: ${show.original_language.toUpperCase()}`} />
       </Stack>
 
-      <Divider sx={{ mb: theme.spacing(2) }}>
+      <Divider>
         <Chip label="Seasons" color="primary" />
       </Divider>
-      <Grid container spacing={2} sx={{ my: theme.spacing(2) }}>
+      <Grid container spacing={2} sx={{ my: 2 }}>
         {show.seasons.map((season) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={season.id}>
             <Card
-              sx={{
-                cursor: "pointer",
-                height: "100%",
-                borderColor: theme.palette.divider,
-              }}
+              sx={{ cursor: "pointer", height: "100%" }}
               onClick={() => handleSeasonClick(season.season_number)}
               variant="outlined"
             >

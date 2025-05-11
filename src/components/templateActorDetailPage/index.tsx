@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { Box, Container, ImageList, ImageListItem } from "@mui/material";
 import Spinner from "../spinner";
 import { useParams } from "react-router-dom";
-import ActorHeader from "../headerActor";
+import ActorHeader from "../actorHeader";
 
 interface TemplateActorDetailPageProps {
   actor: ActorsDetails;

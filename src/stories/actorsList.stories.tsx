@@ -5,7 +5,7 @@ import { MemoryRouter } from "react-router";
 
 import AddActorToFavouritesIcon from "../components/cardIcons/addActorToFavouritesIcon";
 import Grid from "@mui/material/Grid";
-import ActorsContextProvider from "../contexts/moviesContext";
+import MoviesContextProvider from "../contexts/moviesContext";
 
 const meta: Meta<typeof ActorList> = {
   title: "Actors Page/ActorList",
@@ -17,9 +17,9 @@ const meta: Meta<typeof ActorList> = {
       </MemoryRouter>
     ),
     (Story) => (
-      <ActorsContextProvider>
+      <MoviesContextProvider>
         <Story />
-      </ActorsContextProvider>
+      </MoviesContextProvider>
     ),
   ],
 };

@@ -5,7 +5,6 @@ import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { BaseTvShowProps } from "../../types/interfaces";
-import { useTheme } from "@mui/material";
 
 export const titleFilter = (show: BaseTvShowProps, value: string): boolean => {
   return show.name.toLowerCase().search(value.toLowerCase()) !== -1;
@@ -42,7 +41,6 @@ const TvShowFilterUI: React.FC<TvShowFilterUIProps> = ({
   currentSort,
 }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const theme = useTheme();
 
   return (
     <>
@@ -57,14 +55,6 @@ const TvShowFilterUI: React.FC<TvShowFilterUIProps> = ({
         anchor="left"
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
-        PaperProps={{
-          sx: {
-            backgroundColor: theme.palette.background.paper,
-            color: theme.palette.text.primary,
-            width: 400,
-            padding: 2,
-          },
-        }}
       >
         <FilterCard
           onUserInput={onFilterValuesChange}

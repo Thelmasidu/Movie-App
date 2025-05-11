@@ -5,7 +5,7 @@ import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { BaseMovieProps } from "../../types/interfaces";
-import { useTheme } from "@mui/material/styles"; 
+import { useTheme } from "@mui/material/styles";
 
 export const titleFilter = (movie: BaseMovieProps, value: string): boolean => {
   return movie.title.toLowerCase().search(value.toLowerCase()) !== -1;
@@ -38,6 +38,7 @@ const MovieFilterUI: React.FC<MovieFilterUIProps> = ({
   return (
     <>
       <Fab
+        color="secondary"
         onClick={() => setDrawerOpen(true)}
         sx={{
           position: "fixed",
@@ -62,7 +63,7 @@ const MovieFilterUI: React.FC<MovieFilterUIProps> = ({
           sx: {
             backgroundColor: theme.palette.background.paper,
             color: theme.palette.text.primary,
-            width: 400,
+            width: 300,
             padding: 2,
           },
         }}

@@ -20,7 +20,8 @@ import { Link } from "react-router-dom";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { ListedMovie } from "../../types/interfaces";
 import img from "../../images/film-poster-placeholder.png";
-import { useTheme } from "@mui/material/styles"; 
+import { useTheme } from "@mui/material/styles";
+
 interface MovieCardProps {
   movie: ListedMovie;
   action: (m: ListedMovie) => React.ReactNode;

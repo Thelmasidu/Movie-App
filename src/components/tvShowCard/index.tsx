@@ -11,15 +11,15 @@ import {
   Tooltip,
   Button,
   Box,
-  useTheme,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import StarIcon from "@mui/icons-material/Star";
-import { TvShowsContext } from "../../contexts/tvShowsContext";
+import { red } from "@mui/material/colors";
+import { Link } from "react-router-dom";
 import { BaseTvShowProps } from "../../types/interfaces";
 import img from "../../images/film-poster-placeholder.png";
-import { Link } from "react-router-dom";
+import { TvShowsContext } from "../../contexts/tvShowsContent";
 
 interface TvShowCardProps {
   show: BaseTvShowProps;
@@ -27,25 +27,24 @@ interface TvShowCardProps {
 }
 
 const TvShowCard: React.FC<TvShowCardProps> = ({ show, action }) => {
-  const theme = useTheme();
   const { favouriteShows } = useContext(TvShowsContext);
   const isFavourite = favouriteShows.includes(show.id);
 
   return (
     <Card
       sx={{
-        borderRadius: theme.shape.borderRadius,
-        boxShadow: theme.shadows[3],
+        borderRadius: 1,
+        boxShadow: 3,
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
         "&:hover": {
           transform: "translateY(-5px)",
-          boxShadow: theme.shadows[8],
+          boxShadow: 8,
         },
       }}
     >
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+          <Avatar sx={{ bgcolor: red[500] }}>
             {show.name.charAt(0).toUpperCase()}
           </Avatar>
         }
@@ -63,7 +62,7 @@ const TvShowCard: React.FC<TvShowCardProps> = ({ show, action }) => {
         action={
           isFavourite && (
             <Tooltip title="Favourite">
-              <IconButton sx={{ color: theme.palette.error.main }}>
+              <IconButton sx={{ color: red[500] }}>
                 <FavoriteIcon />
               </IconButton>
             </Tooltip>
@@ -88,10 +87,7 @@ const TvShowCard: React.FC<TvShowCardProps> = ({ show, action }) => {
           Popularity Score: {show.popularity.toFixed(1)}
         </Typography>
         <Box mt={1} display="flex" alignItems="center">
-          <StarIcon
-            fontSize="small"
-            sx={{ mr: 0.5, color: theme.palette.warning.main }}
-          />
+          <StarIcon fontSize="small" sx={{ mr: 0.5, color: "#fbc02d" }} />
           <Typography variant="body2" color="text.secondary">
             {show.vote_average} / 10
           </Typography>
@@ -107,9 +103,9 @@ const TvShowCard: React.FC<TvShowCardProps> = ({ show, action }) => {
             sx={{
               textTransform: "none",
               fontWeight: 500,
-              backgroundColor: theme.palette.primary.main,
+              backgroundColor: "#1976d2",
               "&:hover": {
-                backgroundColor: theme.palette.primary.dark,
+                backgroundColor: "#115293",
               },
             }}
           >

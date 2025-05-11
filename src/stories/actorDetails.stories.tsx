@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import ActorDetailsPage from "../components/actorDetails"; // Update with correct import path
+import ActorDetailsPage from "../components/actorDetails"; 
 import { MemoryRouter } from "react-router";
-import ActorsContextProvider from "../contexts/actorsContext";
+import MoviesContextProvider from "../contexts/moviesContext";
 import { actorDetails } from "./sampleActorData";
 
 const queryClient = new QueryClient();
@@ -14,9 +14,9 @@ const meta: Meta<typeof ActorDetailsPage> = {
     (Story) => (
       <QueryClientProvider client={queryClient}>
         <MemoryRouter initialEntries={["/"]}>
-          <ActorsContextProvider>
+          <MoviesContextProvider>
             <Story />
-          </ActorsContextProvider>
+          </MoviesContextProvider>
         </MemoryRouter>
       </QueryClientProvider>
     ),

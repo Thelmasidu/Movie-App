@@ -1,5 +1,5 @@
 import React from "react";
-import MuiPagination from "@mui/material/Pagination";
+import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box } from "@mui/material";
 
@@ -9,7 +9,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-const PaginationControls: React.FC<PaginationProps> = ({
+const CustomPagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
@@ -21,7 +21,7 @@ const PaginationControls: React.FC<PaginationProps> = ({
   return (
     <Box sx={{ display: "flex", justifyContent: "center", padding: 3 }}>
       <Stack spacing={3}>
-        <MuiPagination
+        <Pagination
           count={totalPages}
           page={currentPage}
           onChange={handleChange}
@@ -37,4 +37,4 @@ const PaginationControls: React.FC<PaginationProps> = ({
   );
 };
 
-export default PaginationControls;
+export default CustomPagination;
