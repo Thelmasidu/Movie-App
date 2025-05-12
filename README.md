@@ -4,7 +4,8 @@
 **Course:** Enterprise Web Development  
 **Assignment:** Serverless REST API and React SPA  
 **Tech Stack:** React + TypeScript + AWS Lambda + DynamoDB + Cognito + S3
-**Demo Video:** https://youtu.be/XweJcOhz7TA
+**Demo Video:** https://youtu.be/IpTQbaf-zUE
+**Bucket website endpoint:** http://tmdb-movie.s3-website-eu-west-1.amazonaws.com
 ---
 
 ## SS Overview
