@@ -1,30 +1,91 @@
-# React + TypeScript + Vite
+#  Serverless Movies App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Author:** Ngozi Thelma Nwanesindu  
+**Course:** Enterprise Web Development  
+**Assignment:** Serverless REST API and React SPA  
+**Tech Stack:** React + TypeScript + AWS Lambda + DynamoDB + Cognito + S3
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## SS Overview
 
-## Expanding the ESLint configuration
+This is a full-stack **Serverless Movies App** project built as part of an academic assignment. It combines a modern **React** frontend with a **serverless backend** using **AWS Lambda** and **Amazon DynamoDB**, with **Cognito** providing user authentication and **Amazon S3** serving the frontend.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+##  Features
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+###  Core Functionality
+- Browse Movies and TV Series
+- View Actor Profiles
+- View Similar Movies
+- Add and View Reviews
+- Translate Reviews (via Amazon Translate)
+- Create Fantasy Movies
+- Add Movies/Actors/Series to Favourites
+- Search & Filter Movies
+
+###  User Authentication
+- Secure sign-up/login with **Amazon Cognito**
+- Token-based access for private routes
+- Role-based access to fantasy movie creation
+
+###  UI Enhancements
+- Pagination via **React Query**
+- Dynamic Routing (Parameterized URLs)
+- Responsive Design
+- Enhanced Detail Views
+
+---
+
+##  Tech Stack
+
+| Frontend            | Backend               | Cloud Services        |
+|---------------------|-----------------------|------------------------|
+| React + Vite + TS   | AWS Lambda (CDK)      | AWS S3 (Hosting)       |
+| React Router DOM    | Amazon DynamoDB       | Amazon Cognito (Auth)  |
+| React Query         | REST API Gateway      | Amazon Translate       |
+
+---
+
+##  Folder Structure
+
+```
+serverless-movies-app/
+├── src/
+│   ├── api/                # API integration
+│   ├── components/         # Reusable components
+│   ├── pages/              # Route-based pages
+│   ├── hooks/              # Custom hooks
+│   ├── contexts/           # Context API for state
+│   └── main.tsx, App.tsx   # Entry points
+├── public/
+├── package.json
+├── vite.config.ts
+└── README.md
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+---
+
+
+##  Authentication
+
+- Uses **AWS Cognito** for secure login and registration.
+- JWT tokens are used to protect API routes and identify users.
+- Only logged-in users can post reviews, create fantasy movies, or mark favourites.
+
+---
+
+##  Extended Features
+
+- **Fantasy Movie Builder**  
+  Users can design their own fantasy movies with poster uploads, cast, and genres.
+
+- **Review Translation**  
+  Translate reviews into different languages using Amazon Translate.
+
+- **Actor Details View**  
+  Detailed profiles with biography and filmography.
+
+- **Advanced Search**  
+  Filter by genre, rating, release year.
